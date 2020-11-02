@@ -15,7 +15,7 @@ import "assets/scss/black-dashboard-pro-react.scss?v=1.1.0";
 import "assets/demo/demo.css";
 
 const hist = createBrowserHistory();
-
+ 
 ReactDOM.render(
   <Router history={hist}>
     <Switch>
