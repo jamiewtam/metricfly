@@ -33,14 +33,14 @@ class Sidebar extends React.Component {
   }
   // this creates the intial state of this component based on the collapse routes
   // that it gets through this.props.routes
-  getCollapseStates = routes => {
+  getCollapseStates = (routes) => {
     let initialState = {};
     routes.map((prop, key) => {
       if (prop.collapse) {
         initialState = {
           [prop.state]: this.getCollapseInitialState(prop.views),
           ...this.getCollapseStates(prop.views),
-          ...initialState
+          ...initialState,
         };
       }
       return null;
@@ -61,7 +61,7 @@ class Sidebar extends React.Component {
     return false;
   }
   // this function creates the links and collapses that appear in the sidebar (left menu)
-  createLinks = routes => {
+  createLinks = (routes) => {
     const { rtlActive } = this.props;
     return routes.map((prop, key) => {
       if (prop.redirect) {
@@ -79,7 +79,7 @@ class Sidebar extends React.Component {
               href="#pablo"
               data-toggle="collapse"
               aria-expanded={this.state[prop.state]}
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 this.setState(st);
               }}
@@ -138,7 +138,7 @@ class Sidebar extends React.Component {
     });
   };
   // verifies if routeName is the one active (in browser input)
-  activeRoute = routeName => {
+  activeRoute = (routeName) => {
     return this.props.location.pathname.indexOf(routeName) > -1 ? "active" : "";
   };
   componentDidMount() {
@@ -146,7 +146,7 @@ class Sidebar extends React.Component {
     if (navigator.platform.indexOf("Win") > -1) {
       ps = new PerfectScrollbar(this.refs.sidebar, {
         suppressScrollX: true,
-        suppressScrollY: false
+        suppressScrollY: false,
       });
     }
   }
@@ -167,7 +167,6 @@ class Sidebar extends React.Component {
           <a
             href={logo.outterLink}
             className="simple-text logo-mini"
-            target="_blank"
             onClick={this.props.closeSidebar}
           >
             <div className="logo-img">
@@ -179,7 +178,6 @@ class Sidebar extends React.Component {
           <a
             href={logo.outterLink}
             className="simple-text logo-normal"
-            target="_blank"
             onClick={this.props.closeSidebar}
           >
             {logo.text}
@@ -232,16 +230,16 @@ Sidebar.propTypes = {
     PropTypes.shape({
       innerLink: PropTypes.string.isRequired,
       imgSrc: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
+      text: PropTypes.string.isRequired,
     }),
     PropTypes.shape({
       outterLink: PropTypes.string.isRequired,
       imgSrc: PropTypes.string.isRequired,
-      text: PropTypes.string.isRequired
-    })
+      text: PropTypes.string.isRequired,
+    }),
   ]),
   // this is used on responsive to close the sidebar on route navigation
-  closeSidebar: PropTypes.func
+  closeSidebar: PropTypes.func,
 };
 
 export default Sidebar;

@@ -1,6 +1,7 @@
 import React from "react";
 import classnames from "classnames";
 import emailjs, { send } from "emailjs-com";
+import ReactBSAlert from "react-bootstrap-sweetalert";
 // reactstrap components
 import {
   Button,
@@ -31,6 +32,12 @@ class Register extends React.Component {
     document.body.classList.toggle("register-page");
   }
 
+  hideAlert = () => {
+    this.setState({
+      alert: null,
+    });
+  };
+
   render() {
     const sendEmail = (e) => {
       e.preventDefault();
@@ -44,6 +51,19 @@ class Register extends React.Component {
         .then(
           (result) => {
             console.log(result.text);
+            this.setState({
+              alert: (
+                <ReactBSAlert
+                  success
+                  style={{ display: "block", marginTop: "-100px" }}
+                  title="Successfully Signed Up"
+                  onConfirm={() => this.hideAlert()}
+                  onCancel={() => this.hideAlert()}
+                  confirmBtnBsStyle="success"
+                  btnSize=""
+                />
+              ),
+            });
           },
           (error) => {
             console.log(error.text);
@@ -52,51 +72,29 @@ class Register extends React.Component {
     };
     return (
       <div className="wrapper wrapper-full-page" ref="fullPages">
+        {this.state.alert}
         <div className={"full-page "}>
           <div className="content">
             <Container>
-              <h1 style={{ textAlign: "center" }}>METRICFLY.IO</h1>
+              <Row>
+                <img alt="..." src={require("assets/img/logo-white.png")} />
+              </Row>
+
               <Row>
                 <Col className="ml-auto" md="5">
                   <div className="info-area info-horizontal mt-5">
                     <div className="icon icon-warning">
-                      <i className="tim-icons icon-wifi" />
+                      <i className="tim-icons icon-chart-pie-36" />
                     </div>
                     <div className="description">
                       <h3 className="info-title">Shopify App Analytics</h3>
                       <p className="description">
-                        Advanced financial for your Shopify app. Get insights
+                        Advanced analytics for your Shopify app. Get insights
                         such as your true LTV, retention ratios, and average
                         subscription length.
                       </p>
                     </div>
                   </div>
-                  {/* <div className="info-area info-horizontal">
-                    <div className="icon icon-primary">
-                      <i className="tim-icons icon-triangle-right-17" />
-                    </div>
-                    <div className="description">
-                      <h3 className="info-title">Say Goodbye to Excel</h3>
-                      <p className="description">
-                        Discover your apps true performance without the hassle
-                        of excel.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="info-area info-horizontal"> */}
-                  {/* <div className="icon icon-info">
-                      <i className="tim-icons icon-trophy" />
-                    </div>
-                    <div className="description">
-                      <h3 className="info-title">
-                        Built Exclusively for Shopify Apps
-                      </h3>
-                      <p className="description">
-                        We build exclusively for Shopify Apps giving you the
-                        exact metrics you need.
-                      </p>
-                    </div>
-                  </div> */}
                 </Col>
                 <Col className="mr-auto" md="7">
                   <Card className="card-register card-white">

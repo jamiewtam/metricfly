@@ -15,17 +15,36 @@
 
 */
 import React from "react";
-
-import AppIdForm from "../AppIDForm";
-
-// core components
+import classnames from "classnames";
+// reactstrap components
+import {
+  Input,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroup,
+  Row,
+  Col,
+} from "reactstrap";
 
 class Wizard extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <>
-        <h4 className="info-text">Enter In Your App IDs and Trial Periods</h4>
-        <AppIdForm />
+        <h5 className="info-text">
+          Let's start with the basic information (with validation)
+        </h5>
+        <Row className="justify-content-center mt-5">
+          <Col className="text-center" lg="10">
+            <p>
+              Here are the steps you need to do to setup metricfly with Shopify
+              partners
+            </p>
+          </Col>
+        </Row>
       </>
     );
   }

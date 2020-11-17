@@ -34,21 +34,102 @@ import {
   InputGroup,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
+import validator from "email-validator";
+
+import ReactBSAlert from "react-bootstrap-sweetalert";
+
+import { registerUser } from "../../api/auth";
+
 class Register extends React.Component {
-  state = {};
+  state = {
+    email: "",
+    pass: "",
+    passConfirm: "",
+    alert: null,
+  };
   componentDidMount() {
     document.body.classList.toggle("register-page");
   }
   componentWillUnmount() {
     document.body.classList.toggle("register-page");
   }
+
+  handleChange = (type, event) => {
+    this.setState({
+      [type]: event.target.value,
+    });
+  };
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const isEmail = validator.validate(this.state.email);
+
+    if (isEmail) {
+      const { status, message } = await registerUser(
+        this.state.email,
+        this.state.pass,
+        this.state.passConfirm
+      );
+      if (status === "success") {
+        this.setState({
+          alert: (
+            <ReactBSAlert
+              success
+              style={{ display: "block", marginTop: "-100px" }}
+              title="Success Registered"
+              onConfirm={() => this.hideAlert()}
+              onCancel={() => this.hideAlert()}
+              confirmBtnBsStyle="success"
+              btnSize=""
+            />
+          ),
+        });
+      } else {
+        this.setState({
+          alert: (
+            <ReactBSAlert
+              error
+              style={{ display: "block", marginTop: "-100px" }}
+              title={message}
+              onConfirm={() => this.hideAlert()}
+              onCancel={() => this.hideAlert()}
+              confirmBtnBsStyle="error"
+              btnSize=""
+            />
+          ),
+        });
+      }
+    } else {
+      this.setState({
+        alert: (
+          <ReactBSAlert
+            error
+            style={{ display: "block", marginTop: "-100px" }}
+            title="Please Enter In a Correct Email"
+            onConfirm={() => this.hideAlert()}
+            onCancel={() => this.hideAlert()}
+            confirmBtnBsStyle="error"
+            btnSize=""
+          />
+        ),
+      });
+    }
+  };
+
+  hideAlert = () => {
+    this.setState({
+      alert: null,
+    });
+  };
+
   render() {
     return (
       <>
         <div className="content">
+          {this.state.alert}
           <Container>
             <Row>
               <Col className="ml-auto" md="5">
@@ -57,10 +138,10 @@ class Register extends React.Component {
                     <i className="tim-icons icon-wifi" />
                   </div>
                   <div className="description">
-                    <h3 className="info-title">Marketing</h3>
+                    <h3 className="info-title">Shopify App Analytics</h3>
                     <p className="description">
-                      We've created the marketing campaign of the website. It
-                      was a very interesting collaboration.
+                      Understand how your Shopify app is actually performing
+                      without the spreadsheets.
                     </p>
                   </div>
                 </div>
@@ -69,10 +150,10 @@ class Register extends React.Component {
                     <i className="tim-icons icon-triangle-right-17" />
                   </div>
                   <div className="description">
-                    <h3 className="info-title">Fully Coded in HTML5</h3>
+                    <h3 className="info-title">Built for Shopify Partners</h3>
                     <p className="description">
-                      We've developed the website with HTML5 and CSS3. The
-                      client has access to the code using GitHub.
+                      Build exclusively to obtain all the relevant Shopify
+                      partner data.
                     </p>
                   </div>
                 </div>
@@ -81,10 +162,10 @@ class Register extends React.Component {
                     <i className="tim-icons icon-trophy" />
                   </div>
                   <div className="description">
-                    <h3 className="info-title">Built Audience</h3>
+                    <h3 className="info-title">One-Click Insights</h3>
                     <p className="description">
-                      There is also a Fully Customizable CMS Admin Dashboard for
-                      this product.
+                      Calculate valuable metrics such as LTV, CAC, and trial
+                      conversion ratios in just one-click.
                     </p>
                   </div>
                 </div>
@@ -102,24 +183,7 @@ class Register extends React.Component {
                     <Form className="form">
                       <InputGroup
                         className={classnames({
-                          "input-group-focus": this.state.nameFocus
-                        })}
-                      >
-                        <InputGroupAddon addonType="prepend">
-                          <InputGroupText>
-                            <i className="tim-icons icon-single-02" />
-                          </InputGroupText>
-                        </InputGroupAddon>
-                        <Input
-                          placeholder="Full Name"
-                          type="text"
-                          onFocus={e => this.setState({ nameFocus: true })}
-                          onBlur={e => this.setState({ nameFocus: false })}
-                        />
-                      </InputGroup>
-                      <InputGroup
-                        className={classnames({
-                          "input-group-focus": this.state.emailFocus
+                          "input-group-focus": this.state.emailFocus,
                         })}
                       >
                         <InputGroupAddon addonType="prepend">
@@ -129,14 +193,18 @@ class Register extends React.Component {
                         </InputGroupAddon>
                         <Input
                           placeholder="Email"
-                          type="text"
-                          onFocus={e => this.setState({ emailFocus: true })}
-                          onBlur={e => this.setState({ emailFocus: false })}
+                          type="email"
+                          onFocus={(e) => this.setState({ emailFocus: true })}
+                          onBlur={(e) => this.setState({ emailFocus: false })}
+                          value={this.state.email}
+                          onChange={(event) =>
+                            this.handleChange("email", event)
+                          }
                         />
                       </InputGroup>
                       <InputGroup
                         className={classnames({
-                          "input-group-focus": this.state.passFocus
+                          "input-group-focus": this.state.passFocus,
                         })}
                       >
                         <InputGroupAddon addonType="prepend">
@@ -146,16 +214,41 @@ class Register extends React.Component {
                         </InputGroupAddon>
                         <Input
                           placeholder="Password"
-                          type="text"
-                          onFocus={e => this.setState({ passFocus: true })}
-                          onBlur={e => this.setState({ passFocus: false })}
+                          type="password"
+                          onFocus={(e) => this.setState({ passFocus: true })}
+                          onBlur={(e) => this.setState({ passFocus: false })}
+                          onChange={(event) => this.handleChange("pass", event)}
+                        />
+                      </InputGroup>
+                      <InputGroup
+                        className={classnames({
+                          "input-group-focus": this.state.passConfirmFocus,
+                        })}
+                      >
+                        <InputGroupAddon addonType="prepend">
+                          <InputGroupText>
+                            <i className="tim-icons icon-lock-circle" />
+                          </InputGroupText>
+                        </InputGroupAddon>
+                        <Input
+                          placeholder="Confirm Your Password"
+                          type="password"
+                          onFocus={(e) =>
+                            this.setState({ passConfirmFocus: true })
+                          }
+                          onBlur={(e) =>
+                            this.setState({ passConfirmFocus: false })
+                          }
+                          onChange={(event) =>
+                            this.handleChange("passConfirm", event)
+                          }
                         />
                       </InputGroup>
                       <FormGroup check className="text-left">
                         <Label check>
                           <Input type="checkbox" />
                           <span className="form-check-sign" />I agree to the{" "}
-                          <a href="#pablo" onClick={e => e.preventDefault()}>
+                          <a href="#pablo" onClick={(e) => e.preventDefault()}>
                             terms and conditions
                           </a>
                           .
@@ -168,7 +261,7 @@ class Register extends React.Component {
                       className="btn-round"
                       color="primary"
                       href="#pablo"
-                      onClick={e => e.preventDefault()}
+                      onClick={this.handleSubmit}
                       size="lg"
                     >
                       Get Started

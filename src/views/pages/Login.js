@@ -16,6 +16,8 @@
 */
 import React from "react";
 import classnames from "classnames";
+import { Link } from "react-router-dom";
+import { withCookies, Cookies } from "react-cookie";
 // reactstrap components
 import {
   Button,
@@ -30,21 +32,79 @@ import {
   InputGroupText,
   InputGroup,
   Container,
-  Col
+  Col,
 } from "reactstrap";
+import ReactBSAlert from "react-bootstrap-sweetalert";
+import { loginUser } from "../../api/auth";
 
 class Login extends React.Component {
-  state = {};
+  state = {
+    email: "",
+    password: "",
+    token: "",
+  };
   componentDidMount() {
     document.body.classList.toggle("login-page");
   }
   componentWillUnmount() {
     document.body.classList.toggle("login-page");
   }
+
+  handleChange = (type, event) => {
+    this.setState({
+      [type]: event.target.value,
+    });
+  };
+
+  handleSubmit = async (event) => {
+    event.preventDefault();
+    const { status, message, token } = await loginUser(
+      this.state.email,
+      this.state.password
+    );
+
+    if (status === "success") {
+      localStorage.setItem("token", token);
+      this.setState({
+        alert: (
+          <ReactBSAlert
+            success
+            style={{ display: "block", marginTop: "-100px" }}
+            title="Successfully Logged In"
+            onConfirm={() => this.hideAlert()}
+            onCancel={() => this.hideAlert()}
+            confirmBtnBsStyle="success"
+            btnSize=""
+          />
+        ),
+      });
+    } else {
+      this.setState({
+        alert: (
+          <ReactBSAlert
+            error
+            style={{ display: "block", marginTop: "-100px" }}
+            title={message}
+            onConfirm={() => this.hideAlert()}
+            onCancel={() => this.hideAlert()}
+            confirmBtnBsStyle="error"
+            btnSize=""
+          />
+        ),
+      });
+    }
+  };
+
+  hideAlert = () => {
+    this.setState({
+      alert: null,
+    });
+  };
   render() {
     return (
       <>
         <div className="content">
+          {this.state.alert}
           <Container>
             <Col className="ml-auto mr-auto" lg="4" md="6">
               <Form className="form">
@@ -59,7 +119,7 @@ class Login extends React.Component {
                   <CardBody>
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.emailFocus
+                        "input-group-focus": this.state.emailFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -69,14 +129,16 @@ class Login extends React.Component {
                       </InputGroupAddon>
                       <Input
                         placeholder="Email"
-                        type="text"
-                        onFocus={e => this.setState({ emailFocus: true })}
-                        onBlur={e => this.setState({ emailFocus: false })}
+                        type="email"
+                        value={this.state.email}
+                        onChange={(event) => this.handleChange("email", event)}
+                        onFocus={(e) => this.setState({ emailFocus: true })}
+                        onBlur={(e) => this.setState({ emailFocus: false })}
                       />
                     </InputGroup>
                     <InputGroup
                       className={classnames({
-                        "input-group-focus": this.state.passFocus
+                        "input-group-focus": this.state.passFocus,
                       })}
                     >
                       <InputGroupAddon addonType="prepend">
@@ -86,9 +148,12 @@ class Login extends React.Component {
                       </InputGroupAddon>
                       <Input
                         placeholder="Password"
-                        type="text"
-                        onFocus={e => this.setState({ passFocus: true })}
-                        onBlur={e => this.setState({ passFocus: false })}
+                        type="password"
+                        onChange={(event) =>
+                          this.handleChange("password", event)
+                        }
+                        onFocus={(e) => this.setState({ passFocus: true })}
+                        onBlur={(e) => this.setState({ passFocus: false })}
                       />
                     </InputGroup>
                   </CardBody>
@@ -98,20 +163,16 @@ class Login extends React.Component {
                       className="mb-3"
                       color="primary"
                       href="#pablo"
-                      onClick={e => e.preventDefault()}
+                      onClick={this.handleSubmit}
                       size="lg"
                     >
                       Get Started
                     </Button>
                     <div className="pull-left">
                       <h6>
-                        <a
-                          className="link footer-link"
-                          href="#pablo"
-                          onClick={e => e.preventDefault()}
-                        >
+                        <Link to="/auth/register" className="link footer-link">
                           Create Account
-                        </a>
+                        </Link>
                       </h6>
                     </div>
                     <div className="pull-right">
@@ -119,7 +180,7 @@ class Login extends React.Component {
                         <a
                           className="link footer-link"
                           href="#pablo"
-                          onClick={e => e.preventDefault()}
+                          onClick={(e) => e.preventDefault()}
                         >
                           Need Help?
                         </a>

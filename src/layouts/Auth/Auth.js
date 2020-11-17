@@ -20,10 +20,10 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import AuthNavbar from "components/Navbars/AuthNavbar.js";
 import Footer from "components/Footer/Footer.js";
 
-import routes from "routes.js";
+import { routes } from "routes.js";
 
 class Pages extends React.Component {
-  getRoutes = routes => {
+  getRoutes = (routes) => {
     return routes.map((prop, key) => {
       if (prop.collapse) {
         return this.getRoutes(prop.views);
@@ -41,7 +41,7 @@ class Pages extends React.Component {
       }
     });
   };
-  getActiveRoute = routes => {
+  getActiveRoute = (routes) => {
     let activeRoute = "Default Brand Text";
     for (let i = 0; i < routes.length; i++) {
       if (routes[i].collapse) {
@@ -61,7 +61,7 @@ class Pages extends React.Component {
     }
     return activeRoute;
   };
-  getFullPageName = routes => {
+  getFullPageName = (routes) => {
     let pageName = this.getActiveRoute(routes);
     switch (pageName) {
       case "Pricing":

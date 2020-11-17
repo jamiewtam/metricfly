@@ -39,11 +39,8 @@ import {
   FormGroup,
   Progress,
   Row,
-  Col
+  Col,
 } from "reactstrap";
-
-// core components
-import ImageUpload from "components/CustomUpload/ImageUpload.js";
 
 class ExtendedForms extends React.Component {
   constructor(props) {
@@ -51,7 +48,7 @@ class ExtendedForms extends React.Component {
     this.state = {
       singleSelect: null,
       multipleSelect: null,
-      tagsinput: ["Amsterdam", "Washington", "Sydney", "Beijing"]
+      tagsinput: ["Amsterdam", "Washington", "Sydney", "Beijing"],
     };
   }
   componentDidMount() {
@@ -61,16 +58,16 @@ class ExtendedForms extends React.Component {
       start: [40],
       connect: [true, false],
       step: 1,
-      range: { min: 0, max: 100 }
+      range: { min: 0, max: 100 },
     });
     Slider.create(slider2, {
       start: [20, 60],
       connect: [false, true, false],
       step: 1,
-      range: { min: 0, max: 100 }
+      range: { min: 0, max: 100 },
     });
   }
-  handleTagsinput = tagsinput => {
+  handleTagsinput = (tagsinput) => {
     this.setState({ tagsinput });
   };
   render() {
@@ -88,7 +85,7 @@ class ExtendedForms extends React.Component {
                     <ReactDatetime
                       inputProps={{
                         className: "form-control",
-                        placeholder: "Datetime Picker Here"
+                        placeholder: "Datetime Picker Here",
                       }}
                     />
                   </FormGroup>
@@ -105,7 +102,7 @@ class ExtendedForms extends React.Component {
                     <ReactDatetime
                       inputProps={{
                         className: "form-control",
-                        placeholder: "Date Picker Here"
+                        placeholder: "Date Picker Here",
                       }}
                       timeFormat={false}
                     />
@@ -124,7 +121,7 @@ class ExtendedForms extends React.Component {
                       dateFormat={false}
                       inputProps={{
                         className: "form-control",
-                        placeholder: "Time Picker Here"
+                        placeholder: "Time Picker Here",
                       }}
                     />
                   </FormGroup>
@@ -192,17 +189,17 @@ class ExtendedForms extends React.Component {
                             classNamePrefix="react-select"
                             name="singleSelect"
                             value={this.state.singleSelect}
-                            onChange={value =>
+                            onChange={(value) =>
                               this.setState({ singleSelect: value })
                             }
                             options={[
                               {
                                 value: "",
                                 label: "Single Option",
-                                isDisabled: true
+                                isDisabled: true,
                               },
                               { value: "2", label: "Foobar" },
-                              { value: "3", label: "Is great" }
+                              { value: "3", label: "Is great" },
                             ]}
                             placeholder="Single Select"
                           />
@@ -216,14 +213,14 @@ class ExtendedForms extends React.Component {
                             closeMenuOnSelect={false}
                             isMulti
                             value={this.state.multipleSelect}
-                            onChange={value =>
+                            onChange={(value) =>
                               this.setState({ multipleSelect: value })
                             }
                             options={[
                               {
                                 value: "",
                                 label: " Multiple Options",
-                                isDisabled: true
+                                isDisabled: true,
                               },
                               { value: "2", label: "Paris " },
                               { value: "3", label: "Bucharest" },
@@ -242,7 +239,7 @@ class ExtendedForms extends React.Component {
                               { value: "16", label: "Rome" },
                               { value: "17", label: "New York" },
                               { value: "18", label: "Miami " },
-                              { value: "19", label: "Piatra Neamt" }
+                              { value: "19", label: "Piatra Neamt" },
                             ]}
                           />
                         </Col>
@@ -281,19 +278,19 @@ class ExtendedForms extends React.Component {
                               </DropdownItem>
                               <DropdownItem
                                 href="#pablo"
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => e.preventDefault()}
                               >
                                 Action
                               </DropdownItem>
                               <DropdownItem
                                 href="#pablo"
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => e.preventDefault()}
                               >
                                 Another action
                               </DropdownItem>
                               <DropdownItem
                                 href="#pablo"
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => e.preventDefault()}
                               >
                                 Something else here
                               </DropdownItem>
@@ -317,19 +314,19 @@ class ExtendedForms extends React.Component {
                               </DropdownItem>
                               <DropdownItem
                                 href="#pablo"
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => e.preventDefault()}
                               >
                                 Action
                               </DropdownItem>
                               <DropdownItem
                                 href="#pablo"
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => e.preventDefault()}
                               >
                                 Another action
                               </DropdownItem>
                               <DropdownItem
                                 href="#pablo"
-                                onClick={e => e.preventDefault()}
+                                onClick={(e) => e.preventDefault()}
                               >
                                 Something else here
                               </DropdownItem>
@@ -367,23 +364,7 @@ class ExtendedForms extends React.Component {
                       />
                     </Col>
                   </Row>
-                  <Row>
-                    <Col md="4" sm="4">
-                      <CardTitle tag="h4">Regular Image</CardTitle>
-                      <ImageUpload
-                        addBtnColor="default"
-                        changeBtnColor="default"
-                      />
-                    </Col>
-                    <Col md="3" sm="4">
-                      <CardTitle tag="h4">Avatar</CardTitle>
-                      <ImageUpload
-                        avatar
-                        addBtnColor="default"
-                        changeBtnColor="default"
-                      />
-                    </Col>
-                  </Row>
+                  <Row></Row>
                 </CardBody>
               </Card>
               {/* end card */}

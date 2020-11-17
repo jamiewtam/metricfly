@@ -22,26 +22,27 @@ import ReactWizard from "react-bootstrap-wizard";
 import { Col } from "reactstrap";
 
 // wizard steps
-import Step1 from "./WizardSteps/Step1.js";
+
+import Step1 from "./WizardSteps/PartnerSetup.js";
 import Step2 from "./WizardSteps/Step2.js";
 import Step3 from "./WizardSteps/Step3.js";
 
 var steps = [
   {
-    stepName: "About",
+    stepName: "Partner Login",
     stepIcon: "tim-icons icon-single-02",
-    component: Step1
+    component: Step1,
   },
   {
-    stepName: "Account",
+    stepName: "Account Setup",
     stepIcon: "tim-icons icon-settings-gear-63",
-    component: Step2
+    component: Step2,
   },
   {
-    stepName: "Address",
+    stepName: "Billing Info",
     stepIcon: "tim-icons icon-delivery-fast",
-    component: Step3
-  }
+    component: Step3,
+  },
 ];
 
 class Wizard extends React.Component {
@@ -55,7 +56,7 @@ class Wizard extends React.Component {
               navSteps
               validate
               title="Build Your Profile"
-              description="This information will let us know more about you."
+              description="Get Your Dashboard Setup In Just a Few Steps"
               headerTextCenter
               finishButtonClasses="btn-wd btn-info"
               nextButtonClasses="btn-wd btn-info"

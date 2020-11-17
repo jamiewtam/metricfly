@@ -25,7 +25,7 @@ import {
   Navbar,
   NavItem,
   Nav,
-  Container
+  Container,
 } from "reactstrap";
 
 class AuthNavbar extends React.Component {
@@ -33,7 +33,7 @@ class AuthNavbar extends React.Component {
     super(props);
     this.state = {
       collapseOpen: false,
-      color: "navbar-transparent"
+      color: "navbar-transparent",
     };
   }
   componentDidMount() {
@@ -44,7 +44,7 @@ class AuthNavbar extends React.Component {
   // ad bg-white when opened
   toggleCollapse = () => {
     let newState = {
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     };
     if (!this.state.collapseOpen) {
       newState["color"] = "bg-white";
@@ -61,8 +61,12 @@ class AuthNavbar extends React.Component {
       >
         <Container fluid>
           <div className="navbar-wrapper">
-            <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-              {this.props.brandText}
+            <NavbarBrand href="/" onClick={(e) => this.history.push("/")}>
+              <img
+                style={{ height: "47px", width: "200px" }}
+                alt="..."
+                src={require("assets/img/logo-white.png")}
+              />
             </NavbarBrand>
           </div>
           <button
@@ -81,12 +85,8 @@ class AuthNavbar extends React.Component {
           <Collapse isOpen={this.state.collapseOpen} navbar>
             <Nav navbar className="ml-auto">
               <NavItem>
-                <NavLink
-                  to="/admin/dashboard"
-                  className="nav-link text-primary"
-                >
-                  <i className="tim-icons icon-minimal-left" /> Back to
-                  Dashboard
+                <NavLink to="/auth/pricing" className="nav-link">
+                  <i className="tim-icons icon-coins" /> Pricing
                 </NavLink>
               </NavItem>
               <NavItem>
@@ -97,16 +97,6 @@ class AuthNavbar extends React.Component {
               <NavItem>
                 <NavLink to="/auth/login" className="nav-link">
                   <i className="tim-icons icon-single-02" /> Login
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to="/auth/pricing" className="nav-link">
-                  <i className="tim-icons icon-coins" /> Pricing
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink to="/auth/lock-screen" className="nav-link">
-                  <i className="tim-icons icon-lock-circle" /> Lock
                 </NavLink>
               </NavItem>
             </Nav>

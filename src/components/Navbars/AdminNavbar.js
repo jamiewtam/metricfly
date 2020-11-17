@@ -34,8 +34,10 @@ import {
   Nav,
   Container,
   Modal,
-  UncontrolledTooltip
+  UncontrolledTooltip,
 } from "reactstrap";
+
+import { Link } from "react-router-dom";
 
 class AdminNavbar extends React.Component {
   constructor(props) {
@@ -43,7 +45,7 @@ class AdminNavbar extends React.Component {
     this.state = {
       collapseOpen: false,
       modalSearch: false,
-      color: "navbar-transparent"
+      color: "navbar-transparent",
     };
   }
   componentDidMount() {
@@ -56,11 +58,11 @@ class AdminNavbar extends React.Component {
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
       this.setState({
-        color: "bg-white"
+        color: "bg-white",
       });
     } else {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     }
   };
@@ -68,21 +70,21 @@ class AdminNavbar extends React.Component {
   toggleCollapse = () => {
     if (this.state.collapseOpen) {
       this.setState({
-        color: "navbar-transparent"
+        color: "navbar-transparent",
       });
     } else {
       this.setState({
-        color: "bg-white"
+        color: "bg-white",
       });
     }
     this.setState({
-      collapseOpen: !this.state.collapseOpen
+      collapseOpen: !this.state.collapseOpen,
     });
   };
   // this function is to open the Search modal
   toggleModalSearch = () => {
     this.setState({
-      modalSearch: !this.state.modalSearch
+      modalSearch: !this.state.modalSearch,
     });
   };
   render() {
@@ -91,7 +93,7 @@ class AdminNavbar extends React.Component {
         <Navbar
           className={classNames("navbar-absolute", {
             [this.state.color]:
-              this.props.location.pathname.indexOf("full-screen-map") === -1
+              this.props.location.pathname.indexOf("full-screen-map") === -1,
           })}
           expand="lg"
         >
@@ -117,7 +119,7 @@ class AdminNavbar extends React.Component {
               </div>
               <div
                 className={classNames("navbar-toggle d-inline", {
-                  toggled: this.props.sidebarOpened
+                  toggled: this.props.sidebarOpened,
                 })}
               >
                 <button
@@ -130,8 +132,8 @@ class AdminNavbar extends React.Component {
                   <span className="navbar-toggler-bar bar3" />
                 </button>
               </div>
-              <NavbarBrand href="#pablo" onClick={e => e.preventDefault()}>
-                {this.props.brandText}
+              <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
+                {this.props.brandText} - App ID
               </NavbarBrand>
             </div>
             <button
@@ -149,7 +151,7 @@ class AdminNavbar extends React.Component {
             </button>
             <Collapse navbar isOpen={this.state.collapseOpen}>
               <Nav className="ml-auto" navbar>
-                <InputGroup className="search-bar" tag="li">
+                {/* <InputGroup className="search-bar" tag="li">
                   <Button
                     color="link"
                     data-target="#searchModal"
@@ -199,31 +201,35 @@ class AdminNavbar extends React.Component {
                       </DropdownItem>
                     </NavLink>
                   </DropdownMenu>
-                </UncontrolledDropdown>
+                </UncontrolledDropdown> */}
+
                 <UncontrolledDropdown nav>
                   <DropdownToggle
                     caret
                     color="default"
                     data-toggle="dropdown"
                     nav
-                    onClick={e => e.preventDefault()}
+                    onClick={(e) => e.preventDefault()}
                   >
-                    <div className="photo">
-                      <img alt="..." src={require("assets/img/mike.jpg")} />
-                    </div>
+                    <i className="tim-icons icon-single-02" />
                     <b className="caret d-none d-lg-block d-xl-block" />
-                    <p className="d-lg-none">Log out</p>
+                    <p className="d-lg-none">Settings/Log Out</p>
                   </DropdownToggle>
                   <DropdownMenu className="dropdown-navbar" right tag="ul">
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Profile</DropdownItem>
-                    </NavLink>
-                    <NavLink tag="li">
-                      <DropdownItem className="nav-item">Settings</DropdownItem>
+                      <Link to="/admin/user-profile">
+                        <DropdownItem className="nav-item">
+                          Settings
+                        </DropdownItem>
+                      </Link>
                     </NavLink>
                     <DropdownItem divider tag="li" />
                     <NavLink tag="li">
-                      <DropdownItem className="nav-item">Log out</DropdownItem>
+                      <Link to="/auth/logout">
+                        <DropdownItem className="nav-item">
+                          Log out
+                        </DropdownItem>
+                      </Link>
                     </NavLink>
                   </DropdownMenu>
                 </UncontrolledDropdown>
