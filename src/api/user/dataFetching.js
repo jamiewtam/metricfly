@@ -1,10 +1,11 @@
-import axios from "axios";
+import { authAxios } from "../axios";
 
 export const addAppID = async (appID, trialPeriod) => {
   try {
+    const axios = authAxios();
     const res = await axios({
       method: "POST",
-      url: "http://localhost:9000/api/v1/users/addAppIDAndTrialPeriod",
+      url: "users/addAppIDAndTrialPeriod",
       data: {
         appID,
         trialPeriod,
@@ -20,9 +21,10 @@ export const addAppID = async (appID, trialPeriod) => {
 
 export const removeAppID = async (appID) => {
   try {
+    const axios = authAxios();
     const res = await axios({
       method: "DELETE",
-      url: "http://localhost:9000/api/v1/users/removeAppIDAndTrialPeriod",
+      url: "users/removeAppIDAndTrialPeriod",
       data: {
         appID,
       },

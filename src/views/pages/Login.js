@@ -17,7 +17,6 @@
 import React from "react";
 import classnames from "classnames";
 import { Link } from "react-router-dom";
-import { withCookies, Cookies } from "react-cookie";
 // reactstrap components
 import {
   Button,
@@ -36,6 +35,7 @@ import {
 } from "reactstrap";
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import { loginUser } from "../../api/auth";
+import { AuthContext } from "../../util/Context/auth-context";
 
 class Login extends React.Component {
   state = {
@@ -50,6 +50,8 @@ class Login extends React.Component {
     document.body.classList.toggle("login-page");
   }
 
+  static contextType = AuthContext;
+
   handleChange = (type, event) => {
     this.setState({
       [type]: event.target.value,
@@ -58,26 +60,27 @@ class Login extends React.Component {
 
   handleSubmit = async (event) => {
     event.preventDefault();
-    const { status, message, token } = await loginUser(
+    const { status, message, token, user } = await loginUser(
       this.state.email,
       this.state.password
     );
 
     if (status === "success") {
-      localStorage.setItem("token", token);
+      console.log(token, user);
+      this.context.login(token, user);
       this.setState({
         alert: (
           <ReactBSAlert
             success
             style={{ display: "block", marginTop: "-100px" }}
             title="Successfully Logged In"
-            onConfirm={() => this.hideAlert()}
+            showConfirm={false}
             onCancel={() => this.hideAlert()}
-            confirmBtnBsStyle="success"
             btnSize=""
           />
         ),
       });
+      this.props.history.push("/admin/dashboard");
     } else {
       this.setState({
         alert: (

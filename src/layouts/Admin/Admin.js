@@ -30,6 +30,7 @@ import { sideBarRoutes, routes } from "routes.js";
 
 import logo from "assets/img/logo.png";
 import { navRoutes } from "routes";
+import { AuthContext } from "util/Context/auth-context";
 
 var ps;
 
@@ -43,6 +44,7 @@ class Admin extends React.Component {
       sidebarOpened: false,
     };
   }
+
   componentDidMount() {
     if (navigator.platform.indexOf("Win") > -1) {
       document.documentElement.classList.add("perfect-scrollbar-on");
@@ -172,7 +174,12 @@ class Admin extends React.Component {
     });
     document.documentElement.classList.remove("nav-open");
   };
+  static contextType = AuthContext;
   render() {
+    console.log(this.context.auth);
+    if (!this.context.auth) {
+      this.props.history.push("/auth/login");
+    }
     return (
       <div className="wrapper">
         <div className="rna-container">

@@ -21,6 +21,9 @@ import ReactWizard from "react-bootstrap-wizard";
 // reactstrap components
 import { Col } from "reactstrap";
 
+//Context
+import { AuthContext } from "../../util/Context/auth-context";
+
 // wizard steps
 
 import Step1 from "./WizardSteps/PartnerSetup.js";
@@ -46,7 +49,12 @@ var steps = [
 ];
 
 class Wizard extends React.Component {
+  static contextType = AuthContext;
+
   render() {
+    if (!this.context.auth) {
+      this.props.history.push("/auth/login");
+    }
     return (
       <>
         <div className="content">
@@ -59,6 +67,9 @@ class Wizard extends React.Component {
               description="Get Your Dashboard Setup In Just a Few Steps"
               headerTextCenter
               finishButtonClasses="btn-wd btn-info"
+              finishButtonClick={() =>
+                this.props.history.push("/admin/dashboard")
+              }
               nextButtonClasses="btn-wd btn-info"
               previousButtonClasses="btn-wd"
               progressbar

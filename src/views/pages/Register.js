@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
 // reactstrap components
@@ -42,6 +26,7 @@ import validator from "email-validator";
 import ReactBSAlert from "react-bootstrap-sweetalert";
 
 import { registerUser } from "../../api/auth";
+import { AuthContext } from "../../util/Context/auth-context";
 
 class Register extends React.Component {
   state = {
@@ -57,6 +42,8 @@ class Register extends React.Component {
     document.body.classList.toggle("register-page");
   }
 
+  static contextType = AuthContext;
+
   handleChange = (type, event) => {
     this.setState({
       [type]: event.target.value,
@@ -68,18 +55,20 @@ class Register extends React.Component {
     const isEmail = validator.validate(this.state.email);
 
     if (isEmail) {
-      const { status, message } = await registerUser(
+      const { status, message, token, user } = await registerUser(
         this.state.email,
         this.state.pass,
         this.state.passConfirm
       );
+
       if (status === "success") {
+        this.context.login(token, user);
         this.setState({
           alert: (
             <ReactBSAlert
               success
               style={{ display: "block", marginTop: "-100px" }}
-              title="Success Registered"
+              title="You've Been Registered"
               onConfirm={() => this.hideAlert()}
               onCancel={() => this.hideAlert()}
               confirmBtnBsStyle="success"
@@ -87,6 +76,9 @@ class Register extends React.Component {
             />
           ),
         });
+        setTimeout(() => {
+          this.props.history.push("/auth/setup");
+        }, 1000);
       } else {
         this.setState({
           alert: (

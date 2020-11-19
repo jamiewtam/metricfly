@@ -1,10 +1,11 @@
-import axios from "axios";
+import { authAxios } from "../axios";
 
 export const registerUser = async (email, password, passwordConfirm) => {
   try {
+    const axios = authAxios();
     const res = await axios({
       method: "POST",
-      url: "http://localhost:9000/api/v1/users/signup",
+      url: "users/signup",
       data: {
         email,
         password,
@@ -12,7 +13,11 @@ export const registerUser = async (email, password, passwordConfirm) => {
       },
     });
     if (res.data.status === "success") {
-      return { status: "success" };
+      return {
+        status: "success",
+        token: res.data.token,
+        user: res.data.data.user,
+      };
     }
   } catch (err) {
     const errorMessage = err.response.data.message;
@@ -46,18 +51,25 @@ export const registerUser = async (email, password, passwordConfirm) => {
 
 export const loginUser = async (email, password) => {
   try {
+    const axios = authAxios();
     const res = await axios({
       method: "POST",
-      url: "http://localhost:9000/api/v1/users/login",
+      url: "users/login",
       data: {
         email,
         password,
       },
     });
     if (res.data.status === "success") {
-      return { status: "success", token: res.data.token };
+      console.log("response");
+      return {
+        status: "success",
+        token: res.data.token,
+        user: res.data.data.user,
+      };
     }
   } catch (err) {
+    console.log(err);
     const errorMessage = err.response.data.message;
 
     return {
@@ -68,9 +80,10 @@ export const loginUser = async (email, password) => {
 };
 export const logoutUser = async () => {
   try {
+    const axios = authAxios();
     const res = await axios({
       method: "GET",
-      url: "http://localhost:9000/api/v1/users/logout",
+      url: "users/logout",
     });
     if (res.data.status === "success") {
       return { status: "success" };

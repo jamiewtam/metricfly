@@ -22,9 +22,12 @@ import { Container } from "reactstrap";
 import ReactBSAlert from "react-bootstrap-sweetalert";
 
 import { logoutUser } from "../../api/auth";
+import { AuthContext } from "../../util/Context/auth-context";
 
 class Login extends React.Component {
   state = {};
+
+  static contextType = AuthContext;
 
   componentDidMount = async () => {
     const { status } = await logoutUser();
@@ -41,6 +44,8 @@ class Login extends React.Component {
           />
         ),
       });
+      console.log(this.context);
+      this.context.logout();
     }
 
     this.setState({

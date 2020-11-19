@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -23,13 +7,14 @@ import {
   CardHeader,
   CardBody,
   CardFooter,
-  CardText,
   FormGroup,
   Form,
   Input,
   Row,
   Col,
 } from "reactstrap";
+
+import AppIdForm from "../forms/AppIDForm";
 
 class User extends React.Component {
   render() {
@@ -52,22 +37,6 @@ class User extends React.Component {
                         </FormGroup>
                       </Col>
                     </Row>
-                    <Row>
-                      <Col className="pr-md-1" md="10">
-                        <FormGroup>
-                          <label>App ID</label>
-                          <Input defaultValue="Mike" type="text" />
-                        </FormGroup>
-                      </Col>
-                    </Row>
-                    <Row>
-                      <Col md="12">
-                        <FormGroup>
-                          <label>Trial Period</label>
-                          <Input placeholder="e.g. 14" type="text" />
-                        </FormGroup>
-                      </Col>
-                    </Row>
                   </Form>
                 </CardBody>
                 <CardFooter>
@@ -75,6 +44,22 @@ class User extends React.Component {
                     Save
                   </Button>
                 </CardFooter>
+              </Card>
+            </Col>
+          </Row>
+          <Row>
+            <Col md="12">
+              <Card>
+                <CardHeader>
+                  <h5 className="title">Edit App IDs and Trial Periods</h5>
+                </CardHeader>
+                <CardBody>
+                  <Form>
+                    <Col className="pr-md-1" md="10">
+                      <AppIdForm />
+                    </Col>
+                  </Form>
+                </CardBody>
               </Card>
             </Col>
           </Row>
