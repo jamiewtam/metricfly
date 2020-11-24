@@ -26,6 +26,8 @@ import Logout from "views/pages/Logout.js";
 import Lock from "views/pages/Lock.js";
 import FinancialMetrics from "views/FinancialMetrics.js";
 import InstallMetrics from "views/InstallMetrics.js";
+import MonthlyExpenses from "views/pages/MonthlyExpenses/MonthlyExpenses";
+import AdAccounts from "views/pages/AdAccounts";
 
 export const routes = [
   {
@@ -50,68 +52,75 @@ export const routes = [
     layout: "/admin",
   },
   {
-    collapse: true,
-    name: "Pages",
-    icon: "tim-icons icon-image-02",
-    state: "pagesCollapse",
-    views: [
-      {
-        path: "/pricing",
-        name: "Pricing",
-        mini: "P",
-        component: Pricing,
-        layout: "/auth",
-      },
-      {
-        path: "/timeline",
-        name: "Timeline",
-        mini: "T",
-        component: Timeline,
-        layout: "/admin",
-      },
-      {
-        path: "/login",
-        name: "Login",
-        mini: "L",
-        component: Login,
-        layout: "/auth",
-      },
-      {
-        path: "/logout",
-        name: "Logout",
-        mini: "L",
-        component: Logout,
-        layout: "/auth",
-      },
-      {
-        path: "/register",
-        name: "Register",
-        mini: "R",
-        component: Register,
-        layout: "/auth",
-      },
-      {
-        path: "/lock-screen",
-        name: "Lock Screen",
-        mini: "LS",
-        component: Lock,
-        layout: "/auth",
-      },
-      {
-        path: "/user-profile",
-        name: "User Profile",
-        mini: "UP",
-        component: User,
-        layout: "/admin",
-      },
-      {
-        path: "/setup",
-        name: "Setup",
-        mini: "W",
-        component: Wizard,
-        layout: "/auth",
-      },
-    ],
+    path: "/monthlyExpenses",
+    name: "Monthly Expenses",
+    mini: "ME",
+    component: MonthlyExpenses,
+    layout: "/admin",
+  },
+  {
+    path: "/adAccounts",
+    name: "Ad Accounts",
+    mini: "AD",
+    component: AdAccounts,
+    layout: "/admin",
+  },
+
+  {
+    path: "/pricing",
+    name: "Pricing",
+    mini: "P",
+    component: Pricing,
+    layout: "/auth",
+  },
+  {
+    path: "/timeline",
+    name: "Timeline",
+    mini: "T",
+    component: Timeline,
+    layout: "/admin",
+  },
+  {
+    path: "/login",
+    name: "Login",
+    mini: "L",
+    component: Login,
+    layout: "/auth",
+  },
+  {
+    path: "/logout",
+    name: "Logout",
+    mini: "L",
+    component: Logout,
+    layout: "/auth",
+  },
+  {
+    path: "/register",
+    name: "Register",
+    mini: "R",
+    component: Register,
+    layout: "/auth",
+  },
+  {
+    path: "/lock-screen",
+    name: "Lock Screen",
+    mini: "LS",
+    component: Lock,
+    layout: "/auth",
+  },
+  {
+    path: "/user-profile",
+    name: "User Profile",
+    mini: "UP",
+    component: User,
+    layout: "/admin",
+  },
+  {
+    path: "/setup",
+    name: "Setup",
+    mini: "W",
+    component: Wizard,
+    layout: "/auth",
   },
 ];
 
@@ -155,14 +164,14 @@ export const navRoutes = [
         path: "/monthlyExpenses",
         name: "Monthly Expenses",
         mini: "ME",
-        component: Pricing,
+        component: MonthlyExpenses,
         layout: "/admin",
       },
       {
-        path: "/adExpenses",
-        name: "Ad Expenses",
+        path: "/adAccounts",
+        name: "Ad Accounts",
         mini: "AD",
-        component: Timeline,
+        component: AdAccounts,
         layout: "/admin",
       },
     ],

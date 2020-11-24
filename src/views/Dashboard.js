@@ -543,7 +543,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardBody
                 style={{
-                  maxHeight: "300px",
+                  maxHeight: "500px",
                   overflowY: "auto",
                 }}
               >
@@ -564,11 +564,11 @@ const Dashboard = () => {
           <Col lg="6">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Uninstall Reasons</CardTitle>
+                <CardTitle tag="h5">Uninstalls</CardTitle>
               </CardHeader>
               <CardBody
                 style={{
-                  maxHeight: "300px",
+                  maxHeight: "500px",
                   overflowY: "auto",
                 }}
               >
@@ -577,7 +577,7 @@ const Dashboard = () => {
                     <tr>
                       <th className="text-center">Date</th>
                       <th>Store</th>
-                      <th>Uninstall Reason</th>
+                      <th>Reason</th>
                     </tr>
                   </thead>
                   <tbody>{uninstallSection}</tbody>

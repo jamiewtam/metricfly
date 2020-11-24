@@ -61,6 +61,12 @@
       rel="stylesheet"
     />
     <title>Metricfly.io</title>
+    <script>
+      var host = "www.metricfly.io" || "metricfly.io";
+      if ((host == window.location.host) && (window.location.protocol != "https:")){
+      window.location.protocol = "https";
+      }
+      </script>
   </head>
   <body class="sidebar-mini">
     <noscript> You need to enable JavaScript to run this app. </noscript>
@@ -76,10 +82,4 @@
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
   </body>
-  <script>
-    var host = "www.metricfly.io" || "metricfly.io";
-    if ((host == window.location.host) && (window.location.protocol != "https:")){
-    window.location.protocol = "https";
-    }
-    </script>
 </html>
