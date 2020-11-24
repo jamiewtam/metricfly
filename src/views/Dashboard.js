@@ -22,12 +22,9 @@ import {
 } from "reactstrap";
 
 // core components
-import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
+import { chartExample1 } from "variables/charts.js";
+
+import { chartOptions } from "../api/metrics/dashboard/formatChartData";
 
 import { useShowCalendar } from "../util/hooks/useShowCalendar";
 import {
@@ -36,19 +33,6 @@ import {
   CalenderInput,
 } from "../components/Calendar/Calendar";
 import { getDashboardData } from "../api/metrics";
-var mapData = {
-  AU: 760,
-  BR: 550,
-  CA: 120,
-  DE: 1300,
-  FR: 540,
-  GB: 690,
-  GE: 200,
-  IN: 200,
-  RO: 600,
-  RU: 300,
-  US: 2920,
-};
 
 const dashboardReducer = (state, action) => {
   switch (action.type) {
@@ -70,31 +54,26 @@ const dashboardReducer = (state, action) => {
 
 const Dashboard = () => {
   const [state, dispatch] = React.useReducer(dashboardReducer, {
-    netRevenue: 0,
-    netCOGS: 0,
-    totalCustomerOrderExp: 0,
-    grossMargin: 0,
-    orderCount: 0,
-    netTaxes: 0,
-    totalNetShipping: 0,
-    totalRefunds: 0,
-    googleExp: 0,
-    fbExp: 0,
-    bingExp: 0,
-    monthlyExpenses: 0,
-    netCreditCardFees: 0,
-    cashBackTotal: 0,
-    shopifyLoanExp: 0,
-    profitMarginPerc: 0,
-    profit: 0,
-    avgOrderValueTotal: 0,
-    adCostPerOrderTotal: 0,
-    avgCOGSTotal: 0,
+    merchants: 0,
+    trialMerchants: 0,
+    paidMerchants: 0,
+    MRR: 0,
+    LTV: 0,
+    earnings: 0,
+    MRRChart: [],
+    netMerchants: 0,
+    installs: 0,
+    uninstalls: 0,
+    closedStores: 0,
+    uninstallReasonArr: [],
+    eventArr: [],
+    installDataChart: {},
+    chartOptions: {},
     loading: true,
   });
   const [bigChartData, setBigChartData] = React.useState("data1");
   const [startDate, setStartDate] = React.useState({
-    startDate: new Date(),
+    startDate: new Date(moment().subtract(7, "days")),
     dateCounter: 0,
   });
   const [endDate, setEndDate] = React.useState({
@@ -111,10 +90,10 @@ const Dashboard = () => {
     const endDateTest = moment(endDate.endDate).endOf("day");
 
     getDashboardData(startDateTest, endDateTest).then((data) => {
-      // dispatch({
-      //   type: "UPDATE",
-      //   data: data,
-      // });
+      dispatch({
+        type: "UPDATE",
+        data: data,
+      });
     });
 
     return () => {
@@ -125,6 +104,27 @@ const Dashboard = () => {
   const setBgChartData = (name) => {
     setBigChartData(name);
   };
+
+  const appEventSection = state.eventArr.map((event) => {
+    return (
+      <tr key={Math.random()}>
+        <td className="text-center">{event.date}</td>
+        <td>{event.store}</td>
+        <td>{event.event}</td>
+        <td>{event.description}</td>
+      </tr>
+    );
+  });
+
+  const uninstallSection = state.uninstallReasonArr.map((event) => {
+    return (
+      <tr key={Math.random()}>
+        <td className="text-center">{event.date}</td>
+        <td>{event.store}</td>
+        <td>{event.reason}</td>
+      </tr>
+    );
+  });
 
   return (
     <>
@@ -166,10 +166,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardBody>
                 <div className="chart-area">
-                  <Line
-                    data={chartExample1[bigChartData]}
-                    options={chartExample1.options}
-                  />
+                  <Line data={state.MRRChart} options={chartOptions} />
                 </div>
               </CardBody>
             </Card>
@@ -186,7 +183,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Merchants</p>
-                      <CardTitle tag="h3">447</CardTitle>
+                      <CardTitle tag="h3">{state.merchants}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -209,7 +206,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Recurring Revenue</p>
-                      <CardTitle tag="h3">12,000</CardTitle>
+                      <CardTitle tag="h3">{state.MRR}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -232,7 +229,9 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Earnings</p>
-                      <CardTitle tag="h3">150,000</CardTitle>
+                      <CardTitle tag="h3">
+                        {state.earnings.toFixed(2)}
+                      </CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -255,7 +254,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Customer LTV</p>
-                      <CardTitle tag="h3">43.96</CardTitle>
+                      <CardTitle tag="h3">{state.LTV}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -278,7 +277,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Paying Merchants</p>
-                      <CardTitle tag="h3">375</CardTitle>
+                      <CardTitle tag="h3">{state.paidMerchants}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -301,7 +300,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Trial Merchants</p>
-                      <CardTitle tag="h3">56</CardTitle>
+                      <CardTitle tag="h3">{state.trialMerchants}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -324,7 +323,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Expenses</p>
-                      <CardTitle tag="h3">356.57</CardTitle>
+                      <CardTitle tag="h3">{state.paidMerchants}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -434,8 +433,8 @@ const Dashboard = () => {
               <CardBody>
                 <div className="chart-area">
                   <Line
-                    data={chartExample1[bigChartData]}
-                    options={chartExample1.options}
+                    data={state.installDataChart[bigChartData]}
+                    options={chartOptions}
                   />
                 </div>
               </CardBody>
@@ -455,7 +454,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Installs</p>
-                      <CardTitle tag="h3">12</CardTitle>
+                      <CardTitle tag="h3">{state.installs}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -478,7 +477,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Uninstalls</p>
-                      <CardTitle tag="h3">10</CardTitle>
+                      <CardTitle tag="h3">{state.uninstalls}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -501,7 +500,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Closed Stores</p>
-                      <CardTitle tag="h3">2</CardTitle>
+                      <CardTitle tag="h3">{state.closedStores}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -524,7 +523,7 @@ const Dashboard = () => {
                   <Col xs="7">
                     <div className="numbers">
                       <p className="card-category">Net Merchants</p>
-                      <CardTitle tag="h3">1</CardTitle>
+                      <CardTitle tag="h3">{state.netMerchants}</CardTitle>
                     </div>
                   </Col>
                 </Row>
@@ -542,8 +541,13 @@ const Dashboard = () => {
               <CardHeader>
                 <CardTitle tag="h5">App Events</CardTitle>
               </CardHeader>
-              <CardBody>
-                <Table responsive>
+              <CardBody
+                style={{
+                  maxHeight: "300px",
+                  overflowY: "auto",
+                }}
+              >
+                <Table>
                   <thead className="text-primary">
                     <tr>
                       <th className="text-center">Date</th>
@@ -552,14 +556,7 @@ const Dashboard = () => {
                       <th>Event Details</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td className="text-center">Nov 10</td>
-                      <td>Tania Mike</td>
-                      <td>Develop</td>
-                      <td>€ 99,225</td>
-                    </tr>
-                  </tbody>
+                  <tbody>{appEventSection}</tbody>
                 </Table>
               </CardBody>
             </Card>
@@ -569,8 +566,13 @@ const Dashboard = () => {
               <CardHeader>
                 <CardTitle tag="h5">Uninstall Reasons</CardTitle>
               </CardHeader>
-              <CardBody>
-                <Table responsive>
+              <CardBody
+                style={{
+                  maxHeight: "300px",
+                  overflowY: "auto",
+                }}
+              >
+                <Table>
                   <thead className="text-primary">
                     <tr>
                       <th className="text-center">Date</th>
@@ -578,13 +580,7 @@ const Dashboard = () => {
                       <th>Uninstall Reason</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td className="text-center">Nov 10</td>
-                      <td>Tania Mike</td>
-                      <td>€ 99,225</td>
-                    </tr>
-                  </tbody>
+                  <tbody>{uninstallSection}</tbody>
                 </Table>
               </CardBody>
             </Card>
