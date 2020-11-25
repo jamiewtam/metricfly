@@ -1,4 +1,30 @@
+import Swal from "sweetalert2";
 import { authAxios } from "../axios";
+
+export const updateUser = async (email, timezone) => {
+  try {
+    const axios = authAxios();
+    const res = await axios({
+      method: "PATCH",
+      url: "users/updateUser",
+      data: {
+        email,
+        timezone,
+      },
+    });
+    if (res.data.status === "success") {
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        title: "User Data Has Been Updated",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
 
 export const addAppID = async (appID, trialPeriod) => {
   try {

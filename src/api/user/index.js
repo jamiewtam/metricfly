@@ -1,1 +1,1 @@
-export { addAppID, removeAppID } from "./dataFetching";
+export { addAppID, removeAppID, updateUser } from "./dataFetching";

@@ -3,9 +3,7 @@ import moment from "moment";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";
+import { Line } from "react-chartjs-2";
 
 // reactstrap components
 import {
@@ -21,10 +19,8 @@ import {
   Col,
 } from "reactstrap";
 
-// core components
-import { chartExample1 } from "variables/charts.js";
-
-import { chartOptions } from "../../../api/metrics/dashboard/formatChartData";
+import { chartOptions } from "../../../api/metrics/factoryFunctions/formatChartData";
+import { MetricCardWithFooter, MetricCard } from "../../components/MetricCard";
 
 import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
 import {
@@ -85,11 +81,11 @@ const Dashboard = () => {
   React.useEffect(() => {
     dispatch({ type: "SEND_REQUEST" });
 
-    const startDateTest = moment(startDate.startDate).startOf("day");
+    const startDateStartOfDay = moment(startDate.startDate).startOf("day");
 
-    const endDateTest = moment(endDate.endDate).endOf("day");
+    const endDateEndOfDay = moment(endDate.endDate).endOf("day");
 
-    getDashboardData(startDateTest, endDateTest).then((data) => {
+    getDashboardData(startDateStartOfDay, endDateEndOfDay).then((data) => {
       dispatch({
         type: "UPDATE",
         data: data,
@@ -171,192 +167,63 @@ const Dashboard = () => {
               </CardBody>
             </Card>
           </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-success">
-                      <i className="tim-icons icon-chat-33" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Merchants</p>
-                      <CardTitle tag="h3">{state.merchants}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Trial/Paid Merchants</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-primary">
-                      <i className="tim-icons icon-sound-wave" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Recurring Revenue</p>
-                      <CardTitle tag="h3">{state.MRR}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Display Date</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-success">
-                      <i className="tim-icons icon-coins" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Earnings</p>
-                      <CardTitle tag="h3">
-                        {state.earnings.toFixed(2)}
-                      </CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Added to Shopify Payout</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-warning">
-                      <i className="tim-icons icon-spaceship" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Customer LTV</p>
-                      <CardTitle tag="h3">{state.LTV}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Customer LifeTime Value</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-warning">
-                      <i className="tim-icons icon-bag-16" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Paying Merchants</p>
-                      <CardTitle tag="h3">{state.paidMerchants}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Past Trial Period</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-success">
-                      <i className="tim-icons icon-cart" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Trial Merchants</p>
-                      <CardTitle tag="h3">{state.trialMerchants}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">In Trial Period</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-danger">
-                      <i className="tim-icons icon-simple-delete" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Expenses</p>
-                      <CardTitle tag="h3">{state.paidMerchants}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Monthly & Ad Exp.</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-primary">
-                      <i className="tim-icons icon-money-coins" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Profit</p>
-                      <CardTitle tag="h3">356.57</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Earnings Minus Expenses</div>
-              </CardFooter>
-            </Card>
-          </Col>
+
+          <MetricCardWithFooter
+            color="success"
+            title="Merchants"
+            amount={state.merchants}
+            icon="chat-33"
+            footer="Trial/Paid Merchants"
+          />
+          <MetricCardWithFooter
+            color="primary"
+            title="Recurring Revenue"
+            amount={state.MRR}
+            icon="sound-wave"
+            footer="Aggregate MRR"
+          />
+          <MetricCardWithFooter
+            color="success"
+            title="Earnings"
+            amount={state.earnings.toFixed(2)}
+            icon="coins"
+            footer="Amount Added to Shopify Payouts"
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="Customer LTV"
+            icon="spaceship"
+            amount={state.LTV}
+            footer="Customer Lifetime Value"
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="Paying Merchants"
+            icon="bag-16"
+            amount={state.paidMerchants}
+            footer="Past Trial Period"
+          />
+          <MetricCardWithFooter
+            color="success"
+            title="Trial Merchants"
+            icon="cart"
+            amount={state.trialMerchants}
+            footer="Within Trial Period"
+          />
+          <MetricCardWithFooter
+            color="danger"
+            title="Expenses"
+            icon="simple-delete"
+            amount="finish"
+            footer="Within Trial Period"
+          />
+          <MetricCardWithFooter
+            color="danger"
+            title="Profit"
+            icon="money-coins"
+            amount="finish"
+            footer="Earnings Minus Expenses"
+          />
         </Row>
         <Row>
           <Col xs="12">
@@ -442,98 +309,34 @@ const Dashboard = () => {
           </Col>
         </Row>
         <Row>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-success">
-                      <i className="tim-icons icon-simple-add" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Installs</p>
-                      <CardTitle tag="h3">{state.installs}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Recurring Charge Accepted</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-warning">
-                      <i className="tim-icons icon-simple-delete" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Uninstalls</p>
-                      <CardTitle tag="h3">{state.uninstalls}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Uninstalled App</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-danger">
-                      <i className="tim-icons icon-simple-remove" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Closed Stores</p>
-                      <CardTitle tag="h3">{state.closedStores}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Number of Closed Shopify Stores</div>
-              </CardFooter>
-            </Card>
-          </Col>
-          <Col lg="3" md="6">
-            <Card className="card-stats">
-              <CardBody>
-                <Row>
-                  <Col xs="5">
-                    <div className="info-icon text-center icon-primary">
-                      <i className="tim-icons icon-single-02" />
-                    </div>
-                  </Col>
-                  <Col xs="7">
-                    <div className="numbers">
-                      <p className="card-category">Net Merchants</p>
-                      <CardTitle tag="h3">{state.netMerchants}</CardTitle>
-                    </div>
-                  </Col>
-                </Row>
-              </CardBody>
-              <CardFooter>
-                <hr />
-                <div className="stats">Installs Minus Uninstalls</div>
-              </CardFooter>
-            </Card>
-          </Col>
+          <MetricCardWithFooter
+            color="success"
+            title="Installs"
+            amount={state.installs}
+            icon="simple-add"
+            footer="Recurring Charge Accepted"
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="Uninstalls"
+            amount={state.uninstalls}
+            icon="simple-delete"
+            footer="Uninstalled App"
+          />
+          <MetricCardWithFooter
+            color="danger"
+            title="Closed Stores"
+            amount={state.closedStores}
+            icon="simple-remove"
+            footer="Number of Closed Shopify Stores"
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="Net Change"
+            amount={state.netMerchants}
+            icon="refresh-02"
+            footer="Installs Minus Uninstalls"
+          />
         </Row>
         <Row>
           <Col lg="6">
@@ -543,7 +346,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardBody
                 style={{
-                  maxHeight: "500px",
+                  maxHeight: "400px",
                   overflowY: "auto",
                 }}
               >
@@ -568,7 +371,7 @@ const Dashboard = () => {
               </CardHeader>
               <CardBody
                 style={{
-                  maxHeight: "500px",
+                  maxHeight: "400px",
                   overflowY: "auto",
                 }}
               >

@@ -1,22 +1,15 @@
 import moment from "moment";
+import { createLanguageService } from "typescript";
 
 import { authAxios } from "../../axios";
-import {
-  singleLineChart,
-  formatMultiLineChart,
-} from "../factoryFunctions/formatChartData";
+import { formatMultiLineChart } from "../factoryFunctions/formatChartData";
 
-export const getDashboardData = async (
-  startDateUnformatted,
-  endDateUnformatted
-) => {
+export const getInstalMetrics = async (startDate, endDate) => {
   try {
     const axios = authAxios();
-    const startDate = moment(startDateUnformatted).format("YYYY-MM-DD");
-    const endDate = moment(endDateUnformatted).format("YYYY-MM-DD");
     const res = await axios({
       method: "POST",
-      url: "dashboard/getDashboardData",
+      url: "dashboard/getInstallMetrics",
       data: {
         startDate,
         endDate,
@@ -27,22 +20,16 @@ export const getDashboardData = async (
         merchants,
         trialMerchants,
         paidMerchants,
-        MRR,
-        LTV,
-        earnings,
-        MRRArr,
         netMerchants,
         installs,
         uninstalls,
         closedStores,
-        uninstallReasonArr,
         eventArr,
         installChartArr,
         uninstallChartArr,
         netInstallChartArr,
       } = res.data.data;
 
-      const MRRChart = singleLineChart(MRRArr);
       const installDataChart = formatMultiLineChart(
         netInstallChartArr,
         installChartArr,
@@ -53,15 +40,10 @@ export const getDashboardData = async (
         merchants,
         trialMerchants,
         paidMerchants,
-        MRR,
-        LTV,
-        earnings,
-        MRRChart,
         netMerchants,
         installs,
         uninstalls,
         closedStores,
-        uninstallReasonArr,
         eventArr,
         installDataChart,
       };

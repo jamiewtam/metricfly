@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
@@ -38,6 +22,7 @@ import {
 } from "reactstrap";
 
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../util/Context/auth-context";
 
 class AdminNavbar extends React.Component {
   constructor(props) {
@@ -48,6 +33,9 @@ class AdminNavbar extends React.Component {
       color: "navbar-transparent",
     };
   }
+
+  static contextType = AuthContext;
+
   componentDidMount() {
     window.addEventListener("resize", this.updateColor);
   }
@@ -133,7 +121,8 @@ class AdminNavbar extends React.Component {
                 </button>
               </div>
               <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                {this.props.brandText} - App ID
+                {this.props.brandText} -{" "}
+                {this.context.user.appIDsAndTrialPeriods[0].appID}
               </NavbarBrand>
             </div>
             <button
