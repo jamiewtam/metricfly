@@ -24,15 +24,15 @@ import {
 // core components
 import { chartExample1 } from "variables/charts.js";
 
-import { chartOptions } from "../api/metrics/dashboard/formatChartData";
+import { chartOptions } from "../../../api/metrics/dashboard/formatChartData";
 
-import { useShowCalendar } from "../util/hooks/useShowCalendar";
+import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
 import {
   CalendarComponent,
   ShowCalendarBackdrop,
   CalenderInput,
-} from "../components/Calendar/Calendar";
-import { getDashboardData } from "../api/metrics";
+} from "../../../components/Calendar/Calendar";
+import { getDashboardData } from "../../../api/metrics";
 
 const dashboardReducer = (state, action) => {
   switch (action.type) {

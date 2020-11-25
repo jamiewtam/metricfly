@@ -25,8 +25,8 @@ import validator from "email-validator";
 
 import ReactBSAlert from "react-bootstrap-sweetalert";
 
-import { registerUser } from "../../api/auth";
-import { AuthContext } from "../../util/Context/auth-context";
+import { registerUser } from "../../../api/auth";
+import { AuthContext } from "../../../util/Context/auth-context";
 
 class Register extends React.Component {
   state = {

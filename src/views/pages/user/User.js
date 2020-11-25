@@ -14,7 +14,7 @@ import {
   Col,
 } from "reactstrap";
 
-import AppIdForm from "../forms/AppIDForm";
+import AppIdForm from "../../forms/AppIDForm";
 
 class User extends React.Component {
   render() {

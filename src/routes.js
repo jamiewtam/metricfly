@@ -16,18 +16,18 @@
 */
 
 import Wizard from "views/forms/Wizard.js";
-import Dashboard from "views/Dashboard.js";
-import Pricing from "views/pages/Pricing.js";
-import Register from "views/pages/Register.js";
+import Dashboard from "views/pages/metrics/Dashboard";
+import Pricing from "views/pages/authentication/Pricing";
+import Register from "views/pages/authentication/Register.js";
 import Timeline from "views/pages/Timeline.js";
-import User from "views/pages/User.js";
-import Login from "views/pages/Login.js";
-import Logout from "views/pages/Logout.js";
-import Lock from "views/pages/Lock.js";
-import FinancialMetrics from "views/FinancialMetrics.js";
-import InstallMetrics from "views/InstallMetrics.js";
-import MonthlyExpenses from "views/pages/MonthlyExpenses/MonthlyExpenses";
-import AdAccounts from "views/pages/AdAccounts";
+import User from "views/pages/user/User.js";
+import Login from "views/pages/authentication/Login.js";
+import Logout from "views/pages/authentication/Logout.js";
+import Lock from "views/pages/authentication/Lock.js";
+import FinancialMetrics from "views/pages/metrics/FinancialMetrics.js";
+import InstallMetrics from "views/pages/metrics/InstallMetrics.js";
+import MonthlyExpenses from "views/pages/expenses/monthlyExpenses/MonthlyExpenses";
+import AdAccounts from "views/pages/expenses/adAccounts/AdAccounts";
 
 export const routes = [
   {

@@ -34,8 +34,8 @@ import {
   Col,
 } from "reactstrap";
 import ReactBSAlert from "react-bootstrap-sweetalert";
-import { loginUser } from "../../api/auth";
-import { AuthContext } from "../../util/Context/auth-context";
+import { loginUser } from "../../../api/auth";
+import { AuthContext } from "../../../util/Context/auth-context";
 
 class Login extends React.Component {
   state = {

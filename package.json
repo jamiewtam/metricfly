@@ -13,6 +13,7 @@
     "emailjs-com": "^2.6.3",
     "history": "4.10.1",
     "moment": "2.24.0",
+    "moment-timezone": "^0.5.32",
     "node-sass": "4.13.1",
     "nouislider": "14.1.1",
     "perfect-scrollbar": "1.4.0",
