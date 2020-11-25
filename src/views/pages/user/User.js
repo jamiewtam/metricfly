@@ -61,6 +61,7 @@ const User = () => {
                       </FormGroup>
                     </Col>
                     <Col className="pr-md-1" md="10">
+                      <label>Timezone</label>
                       <TimezoneSelector
                         handleChange={handleTimezoneChange}
                         value={timezone}
