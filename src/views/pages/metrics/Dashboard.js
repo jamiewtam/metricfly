@@ -113,13 +113,15 @@ const Dashboard = () => {
   });
 
   const uninstallSection = state.uninstallReasonArr.map((event) => {
-    return (
-      <tr key={Math.random()}>
-        <td className="text-center">{event.date}</td>
-        <td>{event.store}</td>
-        <td>{event.reason}</td>
-      </tr>
-    );
+    if (event.reason) {
+      return (
+        <tr key={Math.random()}>
+          <td className="text-center">{event.date}</td>
+          <td>{event.store}</td>
+          <td>{event.reason}</td>
+        </tr>
+      );
+    }
   });
 
   return (
@@ -178,7 +180,7 @@ const Dashboard = () => {
           <MetricCardWithFooter
             color="primary"
             title="Recurring Revenue"
-            amount={state.MRR}
+            amount={state.MRR.toFixed(2)}
             icon="sound-wave"
             footer="Aggregate MRR"
           />
@@ -193,7 +195,7 @@ const Dashboard = () => {
             color="warning"
             title="Customer LTV"
             icon="spaceship"
-            amount={state.LTV}
+            amount={state.LTV.toFixed(2)}
             footer="Customer Lifetime Value"
           />
           <MetricCardWithFooter
@@ -367,7 +369,7 @@ const Dashboard = () => {
           <Col lg="6">
             <Card>
               <CardHeader>
-                <CardTitle tag="h5">Uninstalls</CardTitle>
+                <CardTitle tag="h5">Uninstalls Reasons</CardTitle>
               </CardHeader>
               <CardBody
                 style={{

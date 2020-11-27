@@ -1,20 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-
 import Wizard from "views/forms/Wizard.js";
 import Dashboard from "views/pages/metrics/Dashboard";
 import Pricing from "views/pages/authentication/Pricing";
@@ -28,6 +11,8 @@ import FinancialMetrics from "views/pages/metrics/FinancialMetrics.js";
 import InstallMetrics from "views/pages/metrics/InstallMetrics.js";
 import MonthlyExpenses from "views/pages/expenses/monthlyExpenses/MonthlyExpenses";
 import AdAccounts from "views/pages/expenses/adAccounts/AdAccounts";
+import PrivacyPolicy from "views/pages/privacy/privacyPolicy";
+import TermsAndConditions from "views/pages/privacy/termsAndConditions";
 
 export const routes = [
   {
@@ -120,6 +105,20 @@ export const routes = [
     name: "Setup",
     mini: "W",
     component: Wizard,
+    layout: "/auth",
+  },
+  {
+    path: "/privacyPolicy",
+    name: "Privacy Policy",
+    mini: "P",
+    component: PrivacyPolicy,
+    layout: "/auth",
+  },
+  {
+    path: "/termsAndConditions",
+    name: "Terms and Conditions",
+    mini: "T",
+    component: TermsAndConditions,
     layout: "/auth",
   },
 ];
