@@ -29,56 +29,55 @@ const AdAccounts = () => {
 
     const accessToken = authResponse.accessToken;
 
-    try {
-      const adAccountArr = [];
+    // try {
+    //   const adAccountArr = [];
 
-      window.FB.api("/me/adaccounts", function (userAdAccounts) {
-        console.log("userAdAccounts:", userAdAccounts);
-        userAdAccounts.data.forEach((el) => adAccountArr.push(el.id));
-      });
-      setTimeout(() => {
-        try {
-          window.FB.api("/me/businesses", function (businessManagers) {
-            if (businessManagers.data) {
-              businessManagers.data.forEach((el) => {
-                window.FB.api(
-                  `${el.id}/owned_ad_accounts`,
-                  function (ownedAdAccounts) {
-                    ownedAdAccounts.data.forEach((el) => {
-                      adAccountArr.push(el.id);
-                    });
+    //   window.FB.api("/me/adaccounts", function (userAdAccounts) {
+    //     console.log("userAdAccounts:", userAdAccounts);
+    //     userAdAccounts.data.forEach((el) => adAccountArr.push(el.id));
+    //   });
+    //   setTimeout(() => {
+    //     try {
+    //       window.FB.api("/me/businesses", function (businessManagers) {
+    //         if (businessManagers.data) {
+    //           businessManagers.data.forEach((el) => {
+    //             window.FB.api(
+    //               `${el.id}/owned_ad_accounts`,
+    //               function (ownedAdAccounts) {
+    //                 ownedAdAccounts.data.forEach((el) => {
+    //                   adAccountArr.push(el.id);
+    //                 });
 
-                    // renderExpenses(userAccessTokentoSend, adAccountArr);
-                  }
-                );
-              });
-              console.log(accessToken, adAccountArr);
-            } else {
-              console.log(accessToken, adAccountArr);
-              // renderExpenses(userAccessTokentoSend, adAccountArr);
-            }
-          });
-        } catch (err) {
-          console.log(err);
-          // renderExpenses(userAccessTokentoSend, adAccountArr);
-        }
-      }, 2000);
-    } catch (err) {
-      console.log(err);
-      // Swal.fire({
-      //   position: "top",
-      //   icon: "error",
-      //   title: "Error",
-      //   html: `${err}`,
-      //   showConfirmButton: false,
-      //   timer: 4000,
-      // });
-      console.log(err);
-    }
+    //                 // renderExpenses(userAccessTokentoSend, adAccountArr);
+    //               }
+    //             );
+    //           });
+    //           console.log(accessToken, adAccountArr);
+    //         } else {
+    //           console.log(accessToken, adAccountArr);
+    //           // renderExpenses(userAccessTokentoSend, adAccountArr);
+    //         }
+    //       });
+    //     } catch (err) {
+    //       console.log(err);
+    //       // renderExpenses(userAccessTokentoSend, adAccountArr);
+    //     }
+    //   }, 2000);
+    // } catch (err) {
+    //   console.log(err);
+    //   // Swal.fire({
+    //   //   position: "top",
+    //   //   icon: "error",
+    //   //   title: "Error",
+    //   //   html: `${err}`,
+    //   //   showConfirmButton: false,
+    //   //   timer: 4000,
+    //   // });
+    //   console.log(err);
+    // }
   };
 
   const statusChangeCallback = (response) => {
-    console.log("statusChangeCallback");
     console.log(response);
     if (response.status === "connected") {
       responseFacebook(response);
@@ -102,7 +101,7 @@ const AdAccounts = () => {
   React.useEffect(() => {
     window.fbAsyncInit = function () {
       window.FB.init({
-        appId: "1556990027819718",
+        appId: "175168940924367",
         cookie: true, // Enable cookies to allow the server to access the session.
         xfbml: true, // Parse social plugins on this webpage.
         version: "v7.0", // Use this Graph API version for this call.
