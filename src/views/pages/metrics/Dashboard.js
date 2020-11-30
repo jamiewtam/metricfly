@@ -12,7 +12,6 @@ import {
   Card,
   CardHeader,
   CardBody,
-  CardFooter,
   CardTitle,
   Table,
   Row,
@@ -20,7 +19,7 @@ import {
 } from "reactstrap";
 
 import { chartOptions } from "../../../api/metrics/factoryFunctions/formatChartData";
-import { MetricCardWithFooter, MetricCard } from "../../components/MetricCard";
+import { MetricCardWithFooter } from "../../components/MetricCard";
 
 import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
 import {
@@ -66,6 +65,8 @@ const Dashboard = () => {
     eventArr: [],
     installDataChart: {},
     chartOptions: {},
+    monthlyExpenseTotal: 0,
+    profit: 0,
     loading: true,
   });
   const [bigChartData, setBigChartData] = React.useState("data1");
@@ -220,14 +221,14 @@ const Dashboard = () => {
             color="danger"
             title="Expenses"
             icon="simple-delete"
-            amount="finish"
-            footer="Within Trial Period"
+            amount={state.monthlyExpenseTotal.toFixed(2)}
+            footer="Monthly Expenses"
           />
           <MetricCardWithFooter
             color="danger"
             title="Profit"
             icon="money-coins"
-            amount="finish"
+            amount={state.profit.toFixed(2)}
             footer="Earnings Minus Expenses"
           />
         </Row>

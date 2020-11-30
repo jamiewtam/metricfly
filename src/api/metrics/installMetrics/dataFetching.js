@@ -24,10 +24,13 @@ export const getInstalMetrics = async (startDate, endDate) => {
         installs,
         uninstalls,
         closedStores,
+        reactivations,
+        LTV,
         eventArr,
         installChartArr,
         uninstallChartArr,
         netInstallChartArr,
+        userChurn,
       } = res.data.data;
 
       const installDataChart = formatMultiLineChart(
@@ -44,8 +47,11 @@ export const getInstalMetrics = async (startDate, endDate) => {
         installs,
         uninstalls,
         closedStores,
+        reactivations,
+        LTV,
         eventArr,
         installDataChart,
+        userChurn,
       };
     }
   } catch (err) {

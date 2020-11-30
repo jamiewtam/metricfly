@@ -121,8 +121,8 @@ class AdminNavbar extends React.Component {
                 </button>
               </div>
               <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
-                {this.props.brandText} -{" "}
-                {this.context.user.appIDsAndTrialPeriods[0].appID}
+                {this.props.brandText} -
+                {this.context.user.appIDsAndTrialPeriods[0].appID || ""}
               </NavbarBrand>
             </div>
             <button

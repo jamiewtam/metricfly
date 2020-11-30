@@ -8,25 +8,14 @@ import { VectorMap } from "react-jvectormap";
 
 // reactstrap components
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
   CardFooter,
   CardTitle,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  UncontrolledDropdown,
-  Label,
-  FormGroup,
-  Input,
-  Progress,
   Table,
   Row,
   Col,
-  UncontrolledTooltip,
 } from "reactstrap";
 import Loading from "../../../util/Loading/Loading";
 

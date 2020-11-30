@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 import classNames from "classnames";
 import { Line } from "react-chartjs-2";
-import { VectorMap } from "react-jvectormap";
 
 // reactstrap components
 import {
@@ -30,20 +29,6 @@ import {
   CalenderInput,
 } from "../../../components/Calendar/Calendar";
 import { getInstalMetrics } from "../../../api/metrics";
-
-var mapData = {
-  AU: 760,
-  BR: 550,
-  CA: 120,
-  DE: 1300,
-  FR: 540,
-  GB: 690,
-  GE: 200,
-  IN: 200,
-  RO: 600,
-  RU: 300,
-  US: 2920,
-};
 
 const dashboardReducer = (state, action) => {
   switch (action.type) {
@@ -74,6 +59,9 @@ const InstallMetrics = () => {
     closedStores: 0,
     eventArr: [],
     installDataChart: [],
+    userChurn: 0,
+    reactivations: 0,
+    LTV: 0,
     loading: true,
   });
   const [bigChartData, setBigChartData] = React.useState("data1");
@@ -266,31 +254,31 @@ const InstallMetrics = () => {
           />
           <MetricCardWithFooter
             color="success"
-            title="Lifetime"
-            amount="finish"
+            title="Lifetime Value"
+            amount={state.LTV}
             icon="molecule-40"
-            footer="Avg. Merchant Install Length"
+            footer="Customer Lifetime Value"
           />
           <MetricCardWithFooter
             color="warning"
             title="Reactivations"
-            amount="finish"
+            amount={state.reactivations}
             icon="triangle-right-17"
-            footer="Merchants Who Installed Again"
+            footer="Re-opened Their Store"
           />
           <MetricCardWithFooter
             color="success"
-            title="Up/down"
-            amount="finish"
+            title="Closed Stores"
+            amount={state.closedStores}
             icon="components"
-            footer="Net Plan Upgrades/Downgrades"
+            footer="Closed Their Store"
           />
           <MetricCardWithFooter
             color="success"
             title="User Churn (%)"
-            amount="finish"
+            amount={state.userChurn}
             icon="refresh-01"
-            footer="Uninstalls / Installs"
+            footer="% of User's Who Removed The App"
           />
         </Row>
         <Row>

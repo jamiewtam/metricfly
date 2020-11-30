@@ -70,12 +70,18 @@ export const loginUser = async (email, password) => {
     }
   } catch (err) {
     console.log(err);
-    const errorMessage = err.response.data.message;
-
-    return {
-      status: "error",
-      message: errorMessage,
-    };
+    if (err.response) {
+      const errorMessage = err.response.data.message;
+      return {
+        status: "error",
+        message: errorMessage,
+      };
+    } else {
+      return {
+        status: "error",
+        message: "There was an error",
+      };
+    }
   }
 };
 export const logoutUser = async () => {

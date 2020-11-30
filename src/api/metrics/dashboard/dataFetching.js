@@ -40,6 +40,8 @@ export const getDashboardData = async (
         installChartArr,
         uninstallChartArr,
         netInstallChartArr,
+        monthlyExpenseTotal,
+        profit,
       } = res.data.data;
 
       const MRRChart = singleLineChart(MRRArr);
@@ -64,6 +66,8 @@ export const getDashboardData = async (
         uninstallReasonArr,
         eventArr,
         installDataChart,
+        monthlyExpenseTotal,
+        profit,
       };
     }
   } catch (err) {
