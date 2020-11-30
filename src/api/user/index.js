@@ -1,1 +1,6 @@
-export { addAppID, removeAppID, updateUser } from "./dataFetching";
+export {
+  addAppID,
+  removeAppID,
+  updateUser,
+  addFacebookAccessToken,
+} from "./dataFetching";

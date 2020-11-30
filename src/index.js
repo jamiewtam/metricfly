@@ -1,5 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import HttpsRedirect from "react-https-redirect";
 
 import App from "./App";
 import AuthProvider from "./util/Context/auth-context";
@@ -12,8 +13,10 @@ import "react-date-range/dist/styles.css"; // Calendar CSS
 import "react-date-range/dist/theme/default.css"; // Calendar CSS
 
 ReactDOM.render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>,
+  <HttpsRedirect>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </HttpsRedirect>,
   document.getElementById("root")
 );

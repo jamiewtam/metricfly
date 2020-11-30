@@ -62,3 +62,21 @@ export const removeAppID = async (appID) => {
     console.log(err);
   }
 };
+
+export const addFacebookAccessToken = async (facebookAccessToken) => {
+  try {
+    const axios = authAxios();
+    const res = await axios({
+      method: "POST",
+      url: "users/facebookAccessToken",
+      data: {
+        facebookAccessToken,
+      },
+    });
+    if (res.data.status === "success") {
+      return { status: "success" };
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
