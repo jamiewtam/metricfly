@@ -7,6 +7,7 @@ import AdminLayout from "layouts/Admin/Admin.js";
 import Landing from "views/pages/Landing.js";
 import { AuthContext } from "./util/Context/auth-context";
 import axios from "axios";
+import Loading from "./util/Loading/Loading";
 
 const hist = createBrowserHistory();
 
@@ -58,7 +59,7 @@ const App = () => {
   }, [loginHandlerFromContext, loadingHandler]);
 
   if (loading === true) {
-    return <p>Loading..</p>;
+    return <Loading />;
   }
 
   return (

@@ -28,6 +28,7 @@ import {
   Col,
   UncontrolledTooltip,
 } from "reactstrap";
+import Loading from "../../../util/Loading/Loading";
 
 // core components
 import {

@@ -29,6 +29,7 @@ import {
   CalenderInput,
 } from "../../../components/Calendar/Calendar";
 import { getDashboardData } from "../../../api/metrics";
+import Loading from "../../../util/Loading/Loading";
 
 const dashboardReducer = (state, action) => {
   switch (action.type) {
@@ -124,6 +125,9 @@ const Dashboard = () => {
     }
   });
 
+  if (state.loading) {
+    return <Loading />;
+  }
   return (
     <>
       <ShowCalendarBackdrop

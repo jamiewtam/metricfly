@@ -22,6 +22,7 @@ import { MetricCardWithFooter, MetricCard } from "../../components/MetricCard";
 import { chartOptions } from "../../../api/metrics/factoryFunctions/formatChartData";
 
 import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
+import Loading from "../../../util/Loading/Loading";
 
 import {
   CalendarComponent,
@@ -125,6 +126,10 @@ const InstallMetrics = () => {
       </tr>
     );
   });
+
+  if (state.loading) {
+    return <Loading />;
+  }
 
   return (
     <>
