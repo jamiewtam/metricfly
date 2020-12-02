@@ -76,7 +76,7 @@ class AdminNavbar extends React.Component {
   };
   render() {
     if (!this.context.user) {
-      this.history.push("auth/login");
+      this.props.history.push("/auth/login");
     }
     return (
       <>
@@ -124,7 +124,9 @@ class AdminNavbar extends React.Component {
               </div>
               <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
                 {this.props.brandText} -
-                {this.context.user.appIDsAndTrialPeriods[0].appID || ""}
+                {this.context.user
+                  ? this.context.user.appIDsAndTrialPeriods[0].appID
+                  : null}
               </NavbarBrand>
             </div>
             <button

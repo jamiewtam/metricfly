@@ -63,7 +63,7 @@ class Login extends React.Component {
           />
         ),
       });
-      this.props.history.push("/auth/syncData");
+      this.props.history.push("/auth/syncData/false");
     } else {
       this.setState({
         alert: (

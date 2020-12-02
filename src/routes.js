@@ -14,6 +14,7 @@ import AdAccounts from "views/pages/expenses/adAccounts/AdAccounts";
 import SyncData from "views/pages/syncData";
 import PrivacyPolicy from "views/pages/privacy/privacyPolicy";
 import TermsAndConditions from "views/pages/privacy/termsAndConditions";
+import WaitToAccept from "views/pages/WaitToAccept";
 
 export const routes = [
   {
@@ -109,10 +110,17 @@ export const routes = [
     layout: "/auth",
   },
   {
-    path: "/syncData",
+    path: "/syncData/:initialSync",
     name: "Sync Shopify Partner Data",
     mini: "T",
     component: SyncData,
+    layout: "/auth",
+  },
+  {
+    path: "/waitToAccept",
+    name: "Wait to Accept",
+    mini: "Wait",
+    component: WaitToAccept,
     layout: "/auth",
   },
   {

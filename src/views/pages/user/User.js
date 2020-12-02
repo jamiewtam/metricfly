@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Link } from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -95,6 +95,23 @@ const User = () => {
                     <AppIdForm />
                   </Col>
                 </Form>
+              </CardBody>
+            </Card>
+          </Col>
+        </Row>
+        <Row>
+          <Col md="12">
+            <Card>
+              <CardHeader>
+                <h5 className="title">Resync All Shopify Partner Data</h5>
+              </CardHeader>
+              <CardBody>
+                <p>This may take a few minutes...</p>
+                <Link to="/auth/syncData/true">
+                  <Button className="btn-fill" color="primary" type="submit">
+                    Resync All Data
+                  </Button>
+                </Link>
               </CardBody>
             </Card>
           </Col>

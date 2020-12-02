@@ -1,5 +1,6 @@
 import React from "react";
-import { Redirect } from "react-router-dom";
+import Swal from "sweetalert2";
+import { Redirect, useParams } from "react-router-dom";
 
 import {
   Card,
@@ -16,12 +17,31 @@ import { syncShopifyPartnerData } from "../../api/sync/dataFetching";
 
 const SyncData = () => {
   const [syncing, setSyncing] = React.useState(true);
+  const [syncingError, setSyncingError] = React.useState(false);
+  const { initialSync } = useParams();
 
   React.useEffect(() => {
-    syncShopifyPartnerData(false).then(() => {
-      setSyncing(false);
+    const initialSyncBoolean = initialSync === true;
+    syncShopifyPartnerData(initialSyncBoolean).then(({ message }) => {
+      if (message === "No Matching AppID") {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: `No Matching App ID Found. Please Update Your App ID`,
+          showConfirmButton: false,
+          onConfirm: false,
+          timer: 6000,
+        });
+        setSyncingError(true);
+      } else {
+        setSyncing(false);
+      }
     });
   }, []);
+
+  if (syncingError) {
+    return <Redirect to="/admin/user-profile" />;
+  }
 
   if (!syncing) {
     return <Redirect to="/admin/dashboard" />;

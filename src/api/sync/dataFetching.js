@@ -44,7 +44,7 @@ export const syncShopifyPartnerData = async (isInitialSync) => {
     await checkDataRedis(jobId);
 
     if (finalResult.state === "completed") {
-      return { message: "Finished Sync" };
+      return { message: finalResult.data };
     }
   } catch (err) {
     console.log(err);

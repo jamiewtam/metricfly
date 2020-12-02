@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -29,7 +13,7 @@ import {
   Progress,
   Container,
   Row,
-  Col
+  Col,
 } from "reactstrap";
 
 class Pricing extends React.Component {
@@ -46,14 +30,13 @@ class Pricing extends React.Component {
           <Container>
             <Row>
               <Col className="ml-auto mr-auto text-center" md="6">
-                <h1 className="title">Pick the best plan for you</h1>
+                <h1 className="title">Everything is free during the beta</h1>
                 <h4 className="description">
-                  You have Free Unlimited Updates and Premium Support on each
-                  package.
+                  We haven't decided on a price yet :)
                 </h4>
               </Col>
             </Row>
-            <Row>
+            {/* <Row>
               <Col lg="3" md="6">
                 <Card className="card-pricing card-primary">
                   <CardBody>
@@ -192,7 +175,7 @@ class Pricing extends React.Component {
                   <Progress max="100" value="50" />
                 </div>
               </Col>
-            </Row>
+            </Row> */}
           </Container>
         </div>
       </>

@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 // react plugin used to create a form with multiple steps
 import ReactWizard from "react-bootstrap-wizard";
@@ -68,7 +52,8 @@ class Wizard extends React.Component {
               headerTextCenter
               finishButtonClasses="btn-wd btn-info"
               finishButtonClick={() =>
-                this.props.history.push("/admin/dashboard")
+                // this.props.history.push("/auth/syncData/true")
+                this.props.history.push("/auth/waitToAccept")
               }
               nextButtonClasses="btn-wd btn-info"
               previousButtonClasses="btn-wd"
