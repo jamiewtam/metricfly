@@ -9,7 +9,7 @@ import { updateUser } from "../../api/user";
 
 const TimezoneForm = () => {
   const email = React.useContext(AuthContext).user.email;
-  const [timezone, setTimezone] = React.useState({ value: "London" });
+  const [timezone, setTimezone] = React.useState({ value: "Etc/GMT+0" });
 
   const handleTimezoneChange = (value) => {
     setTimezone(value);

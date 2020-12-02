@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 import classnames from "classnames";
 import { NavLink } from "react-router-dom";
@@ -84,11 +68,6 @@ class AuthNavbar extends React.Component {
           </button>
           <Collapse isOpen={this.state.collapseOpen} navbar>
             <Nav navbar className="ml-auto">
-              <NavItem>
-                <NavLink to="/auth/pricing" className="nav-link">
-                  <i className="tim-icons icon-coins" /> Pricing
-                </NavLink>
-              </NavItem>
               <NavItem>
                 <NavLink to="/auth/register" className="nav-link">
                   <i className="tim-icons icon-laptop" /> Register

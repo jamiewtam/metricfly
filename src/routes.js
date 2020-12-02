@@ -11,6 +11,7 @@ import FinancialMetrics from "views/pages/metrics/FinancialMetrics.js";
 import InstallMetrics from "views/pages/metrics/InstallMetrics.js";
 import MonthlyExpenses from "views/pages/expenses/monthlyExpenses/MonthlyExpenses";
 import AdAccounts from "views/pages/expenses/adAccounts/AdAccounts";
+import SyncData from "views/pages/syncData";
 import PrivacyPolicy from "views/pages/privacy/privacyPolicy";
 import TermsAndConditions from "views/pages/privacy/termsAndConditions";
 
@@ -105,6 +106,13 @@ export const routes = [
     name: "Setup",
     mini: "W",
     component: Wizard,
+    layout: "/auth",
+  },
+  {
+    path: "/syncData",
+    name: "Sync Shopify Partner Data",
+    mini: "T",
+    component: SyncData,
     layout: "/auth",
   },
   {

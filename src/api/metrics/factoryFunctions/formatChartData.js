@@ -46,6 +46,8 @@ export const chartOptions = {
   },
 };
 
+//SINGLE LINE CHART
+
 const insertLineChartData = (dateArr, valueArr, label) => {
   return (canvas) => {
     let ctx = canvas.getContext("2d");
@@ -92,6 +94,47 @@ const formatLineChart = (chartData) => {
   return [dateArr, valueArr];
 };
 
+export const singleLineChart = (chartData) => {
+  const [dateArr, valueArr] = formatLineChart(chartData);
+  return insertLineChartData(dateArr, valueArr, "MRR");
+};
+
+// TWO SECTION CHART
+const twoSectionLineChart = (
+  oneDates,
+  oneValues,
+  oneTitle,
+  twoDates,
+  twoValues,
+  twoTitle
+) => {
+  return {
+    data1: insertLineChartData(oneDates, oneValues, oneTitle),
+    data2: insertLineChartData(twoDates, twoValues, twoTitle),
+  };
+};
+
+export const formatTwoSectionLineChart = (
+  oneData,
+  oneTitle,
+  twoData,
+  twoTitle
+) => {
+  const [oneDates, oneValues] = formatLineChart(oneData);
+  const [twoDates, twoValues] = formatLineChart(twoData);
+
+  return twoSectionLineChart(
+    oneDates,
+    oneValues,
+    oneTitle,
+    twoDates,
+    twoValues,
+    twoTitle
+  );
+};
+
+// THREE SECTION CHART
+
 const multiLineChartData = (
   netInstallDates,
   netInstallValues,
@@ -128,9 +171,4 @@ export const formatMultiLineChart = (
     uninstallDates,
     uninstallValues
   );
-};
-
-export const singleLineChart = (chartData) => {
-  const [dateArr, valueArr] = formatLineChart(chartData);
-  return insertLineChartData(dateArr, valueArr, "MRR");
 };

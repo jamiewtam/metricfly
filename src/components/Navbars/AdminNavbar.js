@@ -11,7 +11,6 @@ import {
   DropdownItem,
   UncontrolledDropdown,
   Input,
-  InputGroup,
   NavbarBrand,
   Navbar,
   NavLink,
@@ -76,6 +75,9 @@ class AdminNavbar extends React.Component {
     });
   };
   render() {
+    if (!this.context.user) {
+      this.history.push("auth/login");
+    }
     return (
       <>
         <Navbar

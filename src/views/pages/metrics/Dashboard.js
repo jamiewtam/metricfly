@@ -1,14 +1,7 @@
 import React from "react";
 import moment from "moment";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// react plugin used to create charts
 import { Line } from "react-chartjs-2";
-
-// reactstrap components
 import {
-  Button,
-  ButtonGroup,
   Card,
   CardHeader,
   CardBody,
@@ -17,39 +10,26 @@ import {
   Row,
   Col,
 } from "reactstrap";
-
-import { chartOptions } from "../../../api/metrics/factoryFunctions/formatChartData";
+//COMPONENTS
 import { MetricCardWithFooter } from "../../components/MetricCard";
-
-import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
+import Loading from "../../../util/Loading/Loading";
 import {
   CalendarComponent,
   ShowCalendarBackdrop,
   CalenderInput,
 } from "../../../components/Calendar/Calendar";
+import {
+  MultiTabLineChart,
+  metricReducer,
+} from "./components/metricComponents";
+import LastSynced from "./components/lastSynced";
+//FUNCTIONS AND HOOKS
 import { getDashboardData } from "../../../api/metrics";
-import Loading from "../../../util/Loading/Loading";
-
-const dashboardReducer = (state, action) => {
-  switch (action.type) {
-    case "UPDATE":
-      return {
-        ...state,
-        ...action.data,
-        loading: false,
-      };
-    case "SEND_REQUEST":
-      return {
-        ...state,
-        loading: true,
-      };
-    default:
-      return state;
-  }
-};
+import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
+import { chartOptions } from "../../../api/metrics/factoryFunctions/formatChartData";
 
 const Dashboard = () => {
-  const [state, dispatch] = React.useReducer(dashboardReducer, {
+  const [state, dispatch] = React.useReducer(metricReducer, {
     merchants: 0,
     trialMerchants: 0,
     paidMerchants: 0,
@@ -69,7 +49,7 @@ const Dashboard = () => {
     profit: 0,
     loading: true,
   });
-  const [bigChartData, setBigChartData] = React.useState("data1");
+
   const [startDate, setStartDate] = React.useState({
     startDate: new Date(moment().subtract(7, "days")),
     dateCounter: 0,
@@ -98,10 +78,6 @@ const Dashboard = () => {
       handleCalendar();
     };
   }, [endDate]);
-
-  const setBgChartData = (name) => {
-    setBigChartData(name);
-  };
 
   const appEventSection = state.eventArr.map((event) => {
     return (
@@ -163,7 +139,9 @@ const Dashboard = () => {
               <CardHeader>
                 <Row>
                   <Col className="text-left" sm="6">
-                    <CardTitle tag="h2">Monthly Recurring Revenue</CardTitle>
+                    <CardTitle tag="h2">
+                      Monthly Recurring Revenue (Net Fees)
+                    </CardTitle>
                   </Col>
                 </Row>
               </CardHeader>
@@ -187,7 +165,7 @@ const Dashboard = () => {
             title="Recurring Revenue"
             amount={state.MRR.toFixed(2)}
             icon="sound-wave"
-            footer="Aggregate MRR"
+            footer="MRR Net Shopify Fees"
           />
           <MetricCardWithFooter
             color="success"
@@ -232,89 +210,13 @@ const Dashboard = () => {
             footer="Earnings Minus Expenses"
           />
         </Row>
-        <Row>
-          <Col xs="12">
-            <Card className="card-chart">
-              <CardHeader>
-                <Row>
-                  <Col className="text-left" sm="6">
-                    {/* <h5 className="card-category">Installs</h5> */}
-                    <CardTitle tag="h2">Install Metrics</CardTitle>
-                  </Col>
-                  <Col sm="6">
-                    <ButtonGroup
-                      className="btn-group-toggle float-right"
-                      data-toggle="buttons"
-                    >
-                      <Button
-                        color="info"
-                        id="0"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data1",
-                        })}
-                        onClick={() => setBgChartData("data1")}
-                      >
-                        <input defaultChecked name="options" type="radio" />
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Net Growth
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-single-02" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="1"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data2",
-                        })}
-                        onClick={() => setBgChartData("data2")}
-                      >
-                        <input name="options" type="radio" />
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Installs
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-gift-2" />
-                        </span>
-                      </Button>
-                      <Button
-                        color="info"
-                        id="2"
-                        size="sm"
-                        tag="label"
-                        className={classNames("btn-simple", {
-                          active: bigChartData === "data3",
-                        })}
-                        onClick={() => setBgChartData("data3")}
-                      >
-                        <input name="options" type="radio" />
-                        <span className="d-none d-sm-block d-md-block d-lg-block d-xl-block">
-                          Uninstalls
-                        </span>
-                        <span className="d-block d-sm-none">
-                          <i className="tim-icons icon-tap-02" />
-                        </span>
-                      </Button>
-                    </ButtonGroup>
-                  </Col>
-                </Row>
-              </CardHeader>
-              <CardBody>
-                <div className="chart-area">
-                  <Line
-                    data={state.installDataChart[bigChartData]}
-                    options={chartOptions}
-                  />
-                </div>
-              </CardBody>
-            </Card>
-          </Col>
-        </Row>
+        <MultiTabLineChart
+          chartData={state.installDataChart}
+          title="Install Metrics"
+          subTitleOne="Net Growth"
+          subTitleTwo="Installs"
+          subTitleThree="Uninstalls"
+        />
         <Row>
           <MetricCardWithFooter
             color="success"
@@ -396,6 +298,7 @@ const Dashboard = () => {
             </Card>
           </Col>
         </Row>
+        <LastSynced />
       </div>
     </>
   );

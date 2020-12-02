@@ -40,8 +40,8 @@ class Wizard extends React.Component {
         </h4>
         <Row className="justify-content-center mt-5">
           <Col className="text-center" lg="10">
-            <p>
-              <ol style={{ textAlign: "left" }}>
+            <ol style={{ textAlign: "left" }}>
+              <p>
                 <li>
                   Go to your partner dashboard &nbsp;
                   <a target="__blank" href="https://partners.shopify.com">
@@ -52,15 +52,15 @@ class Wizard extends React.Component {
                 <li> Click “Invite Staff Member”</li>
                 <li>
                   Enter an in metricflyapp@gmail.com, and select only the “View
-                  financials, Manage stores, and manage apps” permission
+                  financials and manage apps” permission
                 </li>
                 <li>
                   Finally, grab your Partner ID from your Partner Dashboard URL
                   (in place of "APP_ID_HERE"). Your app ID can be placed on the
                   next page.
                 </li>
-              </ol>
-            </p>
+              </p>
+            </ol>
             <br />
             <img
               alt="..."

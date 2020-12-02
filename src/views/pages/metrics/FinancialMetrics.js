@@ -1,308 +1,193 @@
 import React from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// react plugin used to create charts
-import { Line, Bar } from "react-chartjs-2";
-// react plugin for creating vector maps
-import { VectorMap } from "react-jvectormap";
-
-// reactstrap components
-import {
-  Card,
-  CardHeader,
-  CardBody,
-  CardFooter,
-  CardTitle,
-  Table,
-  Row,
-  Col,
-} from "reactstrap";
+import moment from "moment";
+import { Row, Col } from "reactstrap";
+//COMPONENTS
 import Loading from "../../../util/Loading/Loading";
-
-// core components
 import {
-  chartExample1,
-  chartExample2,
-  chartExample3,
-  chartExample4,
-} from "variables/charts.js";
+  MultiTabLineChart,
+  metricReducer,
+  EventsTable,
+} from "./components/metricComponents";
+import LastSynced from "./components/lastSynced";
+import { MetricCardWithFooter } from "../../components/MetricCard";
+import {
+  CalendarComponent,
+  ShowCalendarBackdrop,
+  CalenderInput,
+} from "../../../components/Calendar/Calendar";
+//FUNCTIONS
+import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
+import { getFinancialMetrics } from "../../../api/metrics";
 
-var mapData = {
-  AU: 760,
-  BR: 550,
-  CA: 120,
-  DE: 1300,
-  FR: 540,
-  GB: 690,
-  GE: 200,
-  IN: 200,
-  RO: 600,
-  RU: 300,
-  US: 2920,
+const FinancialMetrics = () => {
+  const [state, dispatch] = React.useReducer(metricReducer, {
+    LTV: 0,
+    MRR: 0,
+    earnings: 0,
+    appCreditTotal: 0,
+    ARPU: 0,
+    profit: 0,
+    monthlyExpenseTotal: 0,
+    revenueChart: [],
+    financialEventsArr: [],
+    loading: true,
+  });
+
+  const [startDate, setStartDate] = React.useState({
+    startDate: new Date(moment().subtract(7, "days")),
+    dateCounter: 0,
+  });
+  const [endDate, setEndDate] = React.useState({
+    endDate: new Date(),
+  });
+
+  const [showCalendar, handleCalendar] = useShowCalendar();
+
+  React.useEffect(() => {
+    dispatch({ type: "SEND_REQUEST" });
+
+    const startDateStartOfDay = moment(startDate.startDate)
+      .startOf("day")
+      .format("YYYY-MM-DD");
+
+    const endDateEndOfDay = moment(endDate.endDate)
+      .endOf("day")
+      .format("YYYY-MM-DD");
+
+    getFinancialMetrics(startDateStartOfDay, endDateEndOfDay).then((data) => {
+      dispatch({
+        type: "UPDATE",
+        data: data,
+      });
+    });
+
+    return () => {
+      handleCalendar();
+    };
+  }, [endDate]);
+
+  const financialEventSection = state.financialEventsArr.map((event) => {
+    return (
+      <tr key={Math.random()}>
+        <td className="text-center">{event.date}</td>
+        <td>{event.appName}</td>
+        <td>{event.store}</td>
+        <td>{event.description}</td>
+        <td className="text-center">{event.amount}</td>
+      </tr>
+    );
+  });
+
+  if (state.loading) {
+    return <Loading />;
+  }
+
+  return (
+    <>
+      <ShowCalendarBackdrop
+        handleCalendar={handleCalendar}
+        showCalendar={showCalendar}
+      />
+      <div className="content">
+        <Row>
+          <Col sm="8"></Col>
+          <Col className="text-right pl-3" sm="4">
+            <CalendarComponent
+              showCalendar={showCalendar}
+              startDateItems={{
+                startDate,
+                setStartDate,
+              }}
+              endDateItems={{
+                endDate,
+                setEndDate,
+              }}
+            />
+            <CalenderInput
+              startDate={startDate.startDate}
+              endDate={endDate.endDate}
+              handleCalendar={handleCalendar}
+            />
+          </Col>
+        </Row>
+
+        <MultiTabLineChart
+          chartData={state.revenueChart}
+          title="Revenue Metrics"
+          subTitleOne="Monthly Recurring Revenue (Net Fees)"
+          subTitleTwo="Earnings"
+        />
+
+        <Row>
+          <MetricCardWithFooter
+            color="warning"
+            title="Revenue"
+            amount={state.earnings.toFixed(2)}
+            icon="sound-wave"
+            footer="Total Revenue From Payouts"
+          />
+          <MetricCardWithFooter
+            color="danger"
+            title="Ad Spend"
+            amount="Beta"
+            icon="single-02"
+            footer="Total Revenue From Payouts"
+          />
+          <MetricCardWithFooter
+            color="danger"
+            title="Monthly Expenses"
+            amount={state.monthlyExpenseTotal.toFixed(2)}
+            icon="calendar-60"
+            footer="Proportionally Calculated By Dates"
+          />
+          <MetricCardWithFooter
+            color="danger"
+            title="Credits Issued"
+            amount={state.appCreditTotal.toFixed(2)}
+            icon="simple-delete"
+            footer="Application
+              Credit Issued"
+          />
+          <MetricCardWithFooter
+            color="primary"
+            title="Profit"
+            amount={state.profit.toFixed(2)}
+            icon="money-coins"
+            footer="Payout Revenue Minus Exp."
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="CAC"
+            amount="Beta"
+            icon="badge"
+            footer="Cost per acquisition"
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="ARPU"
+            amount={state.ARPU}
+            icon="refresh-01"
+            footer="Average Revenue Per User"
+          />
+          <MetricCardWithFooter
+            color="warning"
+            title="Ads/Installs"
+            amount="Beta"
+            icon="paper"
+            footer="Ad Cost Per Install"
+          />
+        </Row>
+        <Row>
+          <EventsTable
+            headers={["date", "App Name", "Store", "Description", "Amount"]}
+            title="Financial Events"
+            tableBody={financialEventSection}
+          />
+        </Row>
+        <LastSynced />
+      </div>
+    </>
+  );
 };
 
-class Dashboard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      bigChartData: "data1",
-    };
-  }
-  setBgChartData = (name) => {
-    this.setState({
-      bigChartData: name,
-    });
-  };
-  render() {
-    return (
-      <>
-        <div className="content">
-          <Row>
-            <Col xs="12">
-              <Card className="card-chart">
-                <CardHeader>
-                  <Row>
-                    <Col className="text-left" sm="6">
-                      <CardTitle tag="h2">Revenue Over Time</CardTitle>
-                    </Col>
-                  </Row>
-                </CardHeader>
-                <CardBody>
-                  <div className="chart-area">
-                    <Line
-                      data={chartExample1[this.state.bigChartData]}
-                      options={chartExample1.options}
-                    />
-                  </div>
-                </CardBody>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-warning">
-                        <i className="tim-icons icon-sound-wave" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Revenue</p>
-                        <CardTitle tag="h3">150</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">Total Revenue From Payouts</div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-danger">
-                        <i className="tim-icons icon-single-02" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Ad Spend</p>
-                        <CardTitle tag="h3">456.5</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">Facebook + Google Ad Spend</div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-danger">
-                        <i className="tim-icons icon-calendar-60" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Monthly Expenses</p>
-                        <CardTitle tag="h3">25.5</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">Proportionally Calculated</div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-danger">
-                        <i className="tim-icons icon-simple-delete" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Credits Issued</p>
-                        <CardTitle tag="h3">45.4</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="tim-icons icon-watch-time" /> Application
-                    Credit Issued
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-primary">
-                        <i className="tim-icons icon-money-coins" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Profit</p>
-                        <CardTitle tag="h3">25</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">Payout Revenue Minus Exp.</div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-warning">
-                        <i className="tim-icons icon-badge" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">CAC</p>
-                        <CardTitle tag="h3">456.5</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">Cost per acquisition </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-success">
-                        <i className="tim-icons icon-refresh-01" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Revenue Churn %</p>
-                        <CardTitle tag="h3">25.5</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">Insert Calc. </div>
-                </CardFooter>
-              </Card>
-            </Col>
-            <Col lg="3" md="6">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col xs="5">
-                      <div className="info-icon text-center icon-warning">
-                        <i className="tim-icons icon-paper" />
-                      </div>
-                    </Col>
-                    <Col xs="7">
-                      <div className="numbers">
-                        <p className="card-category">Ads/Installs</p>
-                        <CardTitle tag="h3">45.4</CardTitle>
-                      </div>
-                    </Col>
-                  </Row>
-                </CardBody>
-                <CardFooter>
-                  <hr />
-                  <div className="stats">
-                    <i className="tim-icons icon-watch-time" /> Ad cost per
-                    install
-                  </div>
-                </CardFooter>
-              </Card>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg="12">
-              <Card>
-                <CardHeader>
-                  <CardTitle tag="h5">Financial Events</CardTitle>
-                </CardHeader>
-                <CardBody>
-                  <Table responsive>
-                    <thead className="text-primary">
-                      <tr>
-                        <th className="text-center">Date</th>
-                        <th>Store</th>
-                        <th>Description</th>
-                        <th>Type</th>
-                        <th className="text-center">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td className="text-center">Nov 10</td>
-                        <td>superstore</td>
-                        <td>Develop</td>
-                        <td>Taxes</td>
-                        <td className="text-center">€ 99,225</td>
-                      </tr>
-                    </tbody>
-                  </Table>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </div>
-      </>
-    );
-  }
-}
-
-export default Dashboard;
+export default FinancialMetrics;
