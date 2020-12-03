@@ -165,7 +165,7 @@ const FinancialMetrics = () => {
           <MetricCardWithFooter
             color="warning"
             title="ARPU"
-            amount={state.ARPU}
+            amount={state.ARPU.toFixed(2)}
             icon="refresh-01"
             footer="Average Revenue Per User"
           />

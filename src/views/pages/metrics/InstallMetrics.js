@@ -235,7 +235,7 @@ const InstallMetrics = () => {
           <MetricCardWithFooter
             color="success"
             title="Lifetime Value"
-            amount={state.LTV}
+            amount={state.LTV.toFixed(2)}
             icon="molecule-40"
             footer="Customer Lifetime Value"
           />

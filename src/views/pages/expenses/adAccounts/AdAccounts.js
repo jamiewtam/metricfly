@@ -128,14 +128,14 @@ const AdAccounts = () => {
           <Col md="12">
             <Card>
               <CardHeader>
-                <h5 className="title">Edit Profile</h5>
+                <h5 className="title">Ad Accounts</h5>
               </CardHeader>
               <CardBody>
                 <Form>
                   <Row>
                     <Col className="pr-md-1" md="10"></Col>
                     <Col className="pr-md-1" md="10">
-                      <p>Log Into Facebook</p>
+                      <p>Log Into Facebook (COMING SOON)</p>
                       {/* 
                       <FacebookLogin
                         appId="175168940924367"

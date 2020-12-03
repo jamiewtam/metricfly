@@ -2,7 +2,8 @@ import Wizard from "views/forms/Wizard.js";
 import Dashboard from "views/pages/metrics/Dashboard";
 import Pricing from "views/pages/authentication/Pricing";
 import Register from "views/pages/authentication/Register.js";
-import Timeline from "views/pages/Timeline.js";
+import Timeline from "views/pages/Merchants/Timeline";
+import Merchants from "views/pages/Merchants/Merchants";
 import User from "views/pages/user/User.js";
 import Login from "views/pages/authentication/Login.js";
 import Logout from "views/pages/authentication/Logout.js";
@@ -52,7 +53,13 @@ export const routes = [
     component: AdAccounts,
     layout: "/admin",
   },
-
+  {
+    path: "/merchants",
+    name: "Merchants",
+    mini: "M",
+    component: Merchants,
+    layout: "/admin",
+  },
   {
     path: "/pricing",
     name: "Pricing",
@@ -61,7 +68,7 @@ export const routes = [
     layout: "/auth",
   },
   {
-    path: "/timeline",
+    path: "/timeline/:store",
     name: "Timeline",
     mini: "T",
     component: Timeline,
@@ -192,10 +199,10 @@ export const navRoutes = [
     ],
   },
   {
-    path: "/customers",
+    path: "/merchants",
     name: "Merchants",
     icon: "tim-icons icon-single-02",
-    component: Dashboard,
+    component: Merchants,
     layout: "/admin",
   },
 ];
