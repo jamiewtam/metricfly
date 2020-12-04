@@ -68,6 +68,7 @@ export const CalenderInput = ({ startDate, endDate, handleCalendar }) => {
 const defineds = {
   lastSevenDays: addDays(new Date(), -6),
   lastThirtyDays: addDays(new Date(), -29),
+  lastSixtyDays: addDays(new Date(), -59),
   startOfWeek: startOfWeek(new Date()),
   endOfWeek: endOfWeek(new Date()),
   startOfLastWeek: startOfWeek(addDays(new Date(), -7)),
@@ -111,6 +112,15 @@ export const CalendarComponent = ({
       range() {
         return {
           startDate: defineds.lastThirtyDays,
+          endDate: defineds.endOfToday,
+        };
+      },
+    },
+    {
+      label: "Last 60 Days",
+      range() {
+        return {
+          startDate: defineds.lastSixtyDays,
           endDate: defineds.endOfToday,
         };
       },

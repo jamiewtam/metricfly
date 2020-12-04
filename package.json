@@ -30,7 +30,6 @@
     "react-dom": "16.13.0",
     "react-facebook-login": "^4.1.1",
     "react-google-maps": "9.4.5",
-    "react-https-redirect": "^1.1.0",
     "react-jvectormap": "0.0.16",
     "react-notification-alert": "0.0.12",
     "react-router-dom": "5.1.2",

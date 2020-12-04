@@ -45,7 +45,7 @@ class AdminNavbar extends React.Component {
   updateColor = () => {
     if (window.innerWidth < 993 && this.state.collapseOpen) {
       this.setState({
-        color: "bg-white",
+        color: "bg-dark",
       });
     } else {
       this.setState({
@@ -122,9 +122,9 @@ class AdminNavbar extends React.Component {
                   <span className="navbar-toggler-bar bar3" />
                 </button>
               </div>
-              <NavbarBrand href="#pablo" onClick={(e) => e.preventDefault()}>
+              <NavbarBrand onClick={(e) => e.preventDefault()}>
                 {this.props.brandText} -
-                {this.context.user
+                {this.context.user && this.context.user.appIDsAndTrialPeriods
                   ? this.context.user.appIDsAndTrialPeriods[0].appID
                   : null}
               </NavbarBrand>

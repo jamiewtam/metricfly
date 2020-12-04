@@ -10,7 +10,7 @@ import AdminNavbar from "components/Navbars/AdminNavbar.js";
 import Footer from "components/Footer/Footer.js";
 import Sidebar from "components/Sidebar/Sidebar.js";
 
-import { sideBarRoutes, routes } from "routes.js";
+import { routes } from "routes.js";
 
 import logo from "assets/img/logo.png";
 import { navRoutes } from "routes";

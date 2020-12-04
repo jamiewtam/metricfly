@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import HttpsRedirect from "react-https-redirect";
 
 import App from "./App";
 import AuthProvider from "./util/Context/auth-context";

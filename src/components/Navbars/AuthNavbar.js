@@ -10,6 +10,7 @@ import {
   NavItem,
   Nav,
   Container,
+  Button,
 } from "reactstrap";
 
 class AuthNavbar extends React.Component {
@@ -31,7 +32,7 @@ class AuthNavbar extends React.Component {
       collapseOpen: !this.state.collapseOpen,
     };
     if (!this.state.collapseOpen) {
-      newState["color"] = "bg-white";
+      newState["color"] = "bg-dark";
     } else {
       newState["color"] = "navbar-transparent";
     }
@@ -68,14 +69,26 @@ class AuthNavbar extends React.Component {
           </button>
           <Collapse isOpen={this.state.collapseOpen} navbar>
             <Nav navbar className="ml-auto">
-              <NavItem>
-                <NavLink to="/auth/register" className="nav-link">
-                  <i className="tim-icons icon-laptop" /> Register
+              <NavItem style={{ padding: "10px 0px" }}>
+                <NavLink
+                  to="/auth/register"
+                  className="nav-link"
+                  style={{ padding: "0px" }}
+                >
+                  <Button className="btn pulse" color="primary" size="sm">
+                    Register
+                  </Button>
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink to="/auth/login" className="nav-link">
-                  <i className="tim-icons icon-single-02" /> Login
+              <NavItem style={{ padding: "10px 0px" }}>
+                <NavLink
+                  to="/auth/login"
+                  className="nav-link"
+                  style={{ padding: "0px" }}
+                >
+                  <Button className="btn-simple btn btn-github" size="sm">
+                    Login
+                  </Button>
                 </NavLink>
               </NavItem>
             </Nav>

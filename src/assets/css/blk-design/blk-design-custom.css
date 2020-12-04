@@ -1,0 +1,69 @@
+.page-header-image {
+  position: absolute;
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.title {
+  margin-top: 30px;
+  margin-bottom: 25px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.2;
+}
+
+.category,
+.card-category {
+  text-transform: capitalize;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.75rem;
+}
+
+.iframe-container iframe {
+  width: 100%;
+  box-shadow: 0px 10px 50px 0px rgba(0, 0, 0, 0.3);
+}
+
+.features-2,
+.features-1,
+.features-3 {
+  text-align: center;
+}
+
+.page-header-image {
+  height: 400px !important;
+}
+
+.header-filter {
+  position: relative;
+}
+.header-filter .container {
+  z-index: 2;
+  position: relative;
+}
+
+.landing-info-title {
+  margin: 25px 0 15px;
+  padding: 0 15px;
+  color: #fff;
+}
+.landing-info-icon {
+  position: absolute;
+  opacity: 0.2;
+  width: 56px;
+  margin-top: -30px;
+  margin-left: -8px;
+  max-width: 100%;
+}
+
+.landing-info {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 70px 10px 30px;
+  text-align: center;
+  border-radius: 3px;
+}
