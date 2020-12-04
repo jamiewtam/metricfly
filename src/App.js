@@ -26,8 +26,11 @@ const App = () => {
 
     const getCurrentUser = async (token) => {
       try {
+        // const url = "http://127.0.0.1:9000/api/v1/users/findDBUser";
+        const url =
+          "https://metricflyapi.herokuapp.com/api/v1/users/findDBUser";
         const res = await axios({
-          url: "http://127.0.0.1:9000/api/v1/users/findDBUser",
+          url,
           headers: {
             Authorization: `Bearer ${token}`,
           },
