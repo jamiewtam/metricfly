@@ -1,3 +1,5 @@
+// import { getFullFormattedDate } from "../../../util/formatting/formatDates";
+
 export const chartOptions = {
   maintainAspectRatio: false,
   legend: {
@@ -13,6 +15,24 @@ export const chartOptions = {
     intersect: 0,
     position: "nearest",
   },
+  elements: {
+    line: {
+      tension: 0,
+      pointRadius: 0, // disable for all `'line'` datasets
+      stepped: false,
+      borderDash: [],
+    },
+  },
+  animation: {
+    duration: 0,
+    radius: 0,
+  },
+  hover: {
+    animationDuration: 0, // duration of animations when hovering an item
+  },
+  spanGaps: true,
+  responsiveAnimationDuration: 0,
+  normalized: true,
   responsive: true,
   scales: {
     yAxes: [
@@ -26,6 +46,7 @@ export const chartOptions = {
         ticks: {
           padding: 20,
           fontColor: "#9a9a9a",
+          autoSkip: true,
         },
       },
     ],
@@ -40,6 +61,9 @@ export const chartOptions = {
         ticks: {
           padding: 20,
           fontColor: "#9a9a9a",
+          autoSkip: true,
+          minRotation: 1,
+          maxRotation: 50,
         },
       },
     ],
@@ -77,6 +101,7 @@ const insertLineChartData = (dateArr, valueArr, label) => {
           pointHoverBorderWidth: 15,
           pointRadius: 4,
           data: valueArr,
+          spanGaps: true,
         },
       ],
     };
