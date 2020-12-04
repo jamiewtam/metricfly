@@ -13,10 +13,8 @@ import "react-date-range/dist/styles.css"; // Calendar CSS
 import "react-date-range/dist/theme/default.css"; // Calendar CSS
 
 ReactDOM.render(
-  <HttpsRedirect>
-    <AuthProvider>
-      <App />
-    </AuthProvider>
-  </HttpsRedirect>,
+  <AuthProvider>
+    <App />
+  </AuthProvider>,
   document.getElementById("root")
 );
