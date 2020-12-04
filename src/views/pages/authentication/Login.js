@@ -51,18 +51,18 @@ class Login extends React.Component {
 
     if (status === "success") {
       this.context.login(token, user);
-      this.setState({
-        alert: (
-          <ReactBSAlert
-            success
-            style={{ display: "block", marginTop: "-100px" }}
-            title="Successfully Logged In"
-            showConfirm={false}
-            onCancel={() => this.hideAlert()}
-            btnSize=""
-          />
-        ),
-      });
+      // this.setState({
+      //   alert: (
+      //     <ReactBSAlert
+      //       success
+      //       style={{ display: "block", marginTop: "-100px" }}
+      //       title="Successfully Logged In"
+      //       showConfirm={false}
+      //       onCancel={() => this.hideAlert()}
+      //       btnSize=""
+      //     />
+      //   ),
+      // });
       this.props.history.push("/auth/syncData/false");
     } else {
       this.setState({
@@ -87,6 +87,9 @@ class Login extends React.Component {
     });
   };
   render() {
+    if (Object.keys(this.context.user).length !== 0) {
+      this.props.history.push("/admin/dashboard");
+    }
     return (
       <>
         <div className="content">

@@ -6,7 +6,7 @@ import { NavLink, Link } from "react-router-dom";
 import ReactBSAlert from "react-bootstrap-sweetalert";
 import Footer from "components/Footer/Footer.js";
 import "assets/css/blk-design/blk-design-custom.css";
-import LandingGif from "assets/gif/landing-gif.gif";
+import LandingGif from "assets/gif/LandingPageGif.gif";
 // import "assets/css/blk-design/demo.css";
 // import "assets/css/blk-design/react-demo.css";
 
@@ -283,11 +283,11 @@ class Register extends React.Component {
                   className="mr-auto text-left mt-5"
                   lg="5"
                   md="7"
-                  style={{ paddingTop: "50px" }}
+                  // style={{ paddingTop: "50px" }}
                 >
                   <h1 className="title">
                     Advanced SaaS & Subscription Analytics For Your Shopify App.
-                    All In Just One-Click
+                    All In Just One-Click.
                   </h1>
                   <br />
                   <div className="buttons">
@@ -304,7 +304,7 @@ class Register extends React.Component {
                   </div>
                 </Col>
                 <Col className="ml-auto mt-5" lg="7" md="12">
-                  <Card>
+                  <Card style={{ backgroundColor: "#1E1E2F" }}>
                     <div className="iframe-container">
                       <img
                         alt="..."
@@ -324,7 +324,7 @@ class Register extends React.Component {
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
-                <Badge color="success" style={{ fontSize: "14px" }} pill>
+                <Badge color="info" style={{ fontSize: "14px" }} pill>
                   Not your average analytics tool
                 </Badge>
                 <h1 className="title"> Real-time Insights and Analytics</h1>
