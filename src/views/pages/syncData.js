@@ -20,24 +20,24 @@ const SyncData = () => {
   const [syncingError, setSyncingError] = React.useState(false);
   const { initialSync } = useParams();
 
-  // React.useEffect(() => {
-  //   const initialSyncBoolean = initialSync === true;
-  //   syncShopifyPartnerData(initialSyncBoolean).then(({ message }) => {
-  //     if (message === "No Matching AppID") {
-  //       Swal.fire({
-  //         position: "top",
-  //         icon: "error",
-  //         title: `No Matching App ID Found. Please Update Your App ID`,
-  //         showConfirmButton: false,
-  //         onConfirm: false,
-  //         timer: 6000,
-  //       });
-  //       setSyncingError(true);
-  //     } else {
-  //       setSyncing(false);
-  //     }
-  //   });
-  // }, []);
+  React.useEffect(() => {
+    const initialSyncBoolean = initialSync === true;
+    syncShopifyPartnerData(initialSyncBoolean).then(({ message }) => {
+      if (message === "No Matching AppID") {
+        Swal.fire({
+          position: "top",
+          icon: "error",
+          title: `No Matching App ID Found. Please Update Your App ID`,
+          showConfirmButton: false,
+          onConfirm: false,
+          timer: 6000,
+        });
+        setSyncingError(true);
+      } else {
+        setSyncing(false);
+      }
+    });
+  }, []);
 
   if (syncingError) {
     return <Redirect to="/admin/user-profile" />;

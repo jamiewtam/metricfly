@@ -61,7 +61,6 @@ export const loginUser = async (email, password) => {
       },
     });
     if (res.data.status === "success") {
-      console.log("response");
       return {
         status: "success",
         token: res.data.token,
