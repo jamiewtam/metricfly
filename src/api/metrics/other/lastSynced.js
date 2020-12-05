@@ -1,4 +1,3 @@
-import moment from "moment";
 import { authAxios } from "../../axios";
 
 export const getLastSynced = async () => {

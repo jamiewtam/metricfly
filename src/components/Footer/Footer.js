@@ -1,22 +1,5 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
-/*eslint-disable*/
 import React from "react";
-import { Container, Row } from "reactstrap";
+import { Container } from "reactstrap";
 // used for making the prop types of this component
 import PropTypes from "prop-types";
 
@@ -29,15 +12,12 @@ class Footer extends React.Component {
         <Container fluid={this.props.fluid ? true : false}>
           <ul className="nav">
             <li className="nav-item">
-              <a className="nav-link" href="https://www.creative-tim.com">
+              <a className="nav-link" href="/auth/privacyPolicy">
                 Privacy Policy
               </a>
             </li>{" "}
             <li className="nav-item">
-              <a
-                className="nav-link"
-                href="https://www.creative-tim.com/presentation"
-              >
+              <a className="nav-link" href="/auth/termsAndConditions">
                 Terms and Conditions
               </a>
             </li>

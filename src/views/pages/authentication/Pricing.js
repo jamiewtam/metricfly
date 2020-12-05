@@ -36,7 +36,7 @@ class Pricing extends React.Component {
                 </h4>
               </Col>
             </Row>
-            {/* <Row>
+            <Row>
               <Col lg="3" md="6">
                 <Card className="card-pricing card-primary">
                   <CardBody>
@@ -175,7 +175,7 @@ class Pricing extends React.Component {
                   <Progress max="100" value="50" />
                 </div>
               </Col>
-            </Row> */}
+            </Row>
           </Container>
         </div>
       </>

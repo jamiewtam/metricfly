@@ -77,6 +77,7 @@ const Dashboard = () => {
     return () => {
       handleCalendar();
     };
+    // eslint-disable-next-line
   }, [endDate]);
 
   const appEventSection = state.eventArr.map((event) => {
@@ -100,6 +101,8 @@ const Dashboard = () => {
         </tr>
       );
     }
+
+    return null;
   });
 
   if (state.loading) {
@@ -216,6 +219,9 @@ const Dashboard = () => {
           subTitleOne="Net Growth"
           subTitleTwo="Installs"
           subTitleThree="Uninstalls"
+          iconOne="simple-add"
+          iconTwo="simple-remove"
+          iconThree="single-02"
         />
         <Row>
           <MetricCardWithFooter

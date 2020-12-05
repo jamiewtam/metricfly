@@ -21,6 +21,9 @@ export const MultiTabLineChart = ({
   subTitleOne,
   subTitleTwo,
   subTitleThree,
+  iconOne,
+  iconTwo,
+  iconThree,
 }) => {
   const [bigChartData, setBigChartData] = React.useState("data1");
 
@@ -57,7 +60,7 @@ export const MultiTabLineChart = ({
                       {subTitleOne}
                     </span>
                     <span className="d-block d-sm-none">
-                      <i className="tim-icons icon-single-02" />
+                      <i className={`tim-icons icon-${iconOne}`} />
                     </span>
                   </Button>
                   <Button
@@ -75,7 +78,7 @@ export const MultiTabLineChart = ({
                       {subTitleTwo}
                     </span>
                     <span className="d-block d-sm-none">
-                      <i className="tim-icons icon-gift-2" />
+                      <i className={`tim-icons icon-${iconTwo}`} />
                     </span>
                   </Button>
                   {subTitleThree && (
@@ -94,7 +97,7 @@ export const MultiTabLineChart = ({
                         {subTitleThree}
                       </span>
                       <span className="d-block d-sm-none">
-                        <i className="tim-icons icon-tap-02" />
+                        <i className={`tim-icons icon-${iconThree}`} />
                       </span>
                     </Button>
                   )}
@@ -139,6 +142,7 @@ const createTableHeaders = (headers) => {
     if (index !== 0 && index !== lastValue) {
       return <th key={index}>{header}</th>;
     }
+    return null;
   });
 
   return (

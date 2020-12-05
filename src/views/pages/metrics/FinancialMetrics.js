@@ -64,6 +64,7 @@ const FinancialMetrics = () => {
     return () => {
       handleCalendar();
     };
+    // eslint-disable-next-line
   }, [endDate]);
 
   const financialEventSection = state.financialEventsArr.map((event) => {
@@ -116,6 +117,8 @@ const FinancialMetrics = () => {
           title="Revenue Metrics"
           subTitleOne="Monthly Recurring Revenue (Net Fees)"
           subTitleTwo="Earnings"
+          iconOne="money-coins"
+          iconTwo="bank"
         />
 
         <Row>

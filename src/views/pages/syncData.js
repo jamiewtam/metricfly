@@ -8,7 +8,6 @@ import {
   CardBody,
   Row,
   Col,
-  Progress,
   CardTitle,
   Container,
 } from "reactstrap";
@@ -37,7 +36,7 @@ const SyncData = () => {
         setSyncing(false);
       }
     });
-  }, []);
+  }, [initialSync]);
 
   if (syncingError) {
     return <Redirect to="/admin/user-profile" />;
@@ -64,12 +63,6 @@ const SyncData = () => {
                   </CardTitle>
                   <div className="lds-dual-ring"></div>
                 </div>
-                {/* <div className="progress-container progress-primary">
-                  <span className="progress-badge">Sync Progress</span>
-                  <Progress max="100" value="60">
-                    <span className="progress-value">60%</span>
-                  </Progress>
-                </div> */}
               </CardBody>
             </Card>
           </Col>

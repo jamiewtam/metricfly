@@ -15,6 +15,7 @@ import {
   MonthlyExpenseFromDB,
   monthlyExpenseReducer,
 } from "./components";
+import Loading from "../../../../util/Loading/Loading";
 //FUNCTIONS
 import {
   createMonthlyExpense,
@@ -99,6 +100,10 @@ const MonthlyExpenses = () => {
       }
     );
   }, [submit]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

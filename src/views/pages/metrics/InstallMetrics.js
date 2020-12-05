@@ -61,12 +61,10 @@ const InstallMetrics = () => {
     const startDateStartOfDay = moment(startDate.startDate)
       .startOf("day")
       .format("YYYY-MM-DD");
-    console.log("startDateStartOfDay:", startDateStartOfDay);
 
     const endDateEndOfDay = moment(endDate.endDate)
       .endOf("day")
       .format("YYYY-MM-DD");
-    console.log("endDateEndOfDay:", endDateEndOfDay);
 
     getInstalMetrics(startDateStartOfDay, endDateEndOfDay).then((data) => {
       dispatch({
@@ -78,6 +76,7 @@ const InstallMetrics = () => {
     return () => {
       handleCalendar();
     };
+    // eslint-disable-next-line
   }, [endDate]);
 
   const setBgChartData = (name) => {
