@@ -1,7 +1,7 @@
 import React from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
-
+import ReactBSAlert from "react-bootstrap-sweetalert";
 // reactstrap components
 import {
   Button,
@@ -30,6 +30,7 @@ class AdminNavbar extends React.Component {
       collapseOpen: false,
       modalSearch: false,
       color: "navbar-transparent",
+      alert: false,
     };
   }
 
@@ -74,9 +75,39 @@ class AdminNavbar extends React.Component {
       modalSearch: !this.state.modalSearch,
     });
   };
+
+  hideAlert = () => {
+    this.setState({
+      alert: null,
+    });
+  };
   render() {
     if (!this.context.user) {
       this.props.history.push("/auth/login");
+    }
+
+    if (
+      this.context.user &&
+      this.context.user.appIDsAndTrialPeriods &&
+      this.context.user.appIDsAndTrialPeriods.length === 0 &&
+      this.state.alert === false
+    ) {
+      this.setState({
+        alert: (
+          <ReactBSAlert
+            error
+            style={{ display: "block", marginTop: "-100px" }}
+            title="At least one app ID is required. Please enter in a new one."
+            onConfirm={() => this.hideAlert()}
+            onCancel={() => this.hideAlert()}
+            confirmBtnBsStyle="error"
+            btnSize=""
+          >
+            Please enter in a new app ID You can use <b>bold</b> text,{" "}
+            <Link to="/admin/user-profile">here</Link>
+          </ReactBSAlert>
+        ),
+      });
     }
     return (
       <>
@@ -87,6 +118,7 @@ class AdminNavbar extends React.Component {
           })}
           expand="lg"
         >
+          {this.state.alert}
           <Container fluid>
             <div className="navbar-wrapper">
               <div className="navbar-minimize d-inline">
@@ -124,7 +156,8 @@ class AdminNavbar extends React.Component {
               </div>
               <NavbarBrand onClick={(e) => e.preventDefault()}>
                 {this.props.brandText} -
-                {this.context.user && this.context.user.appIDsAndTrialPeriods
+                {this.context.user &&
+                this.context.user.appIDsAndTrialPeriods.length > 0
                   ? this.context.user.appIDsAndTrialPeriods[0].appID
                   : null}
               </NavbarBrand>

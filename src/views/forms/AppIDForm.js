@@ -13,9 +13,10 @@ import {
 import { addAppID, removeAppID } from "../../api/user/index";
 
 import { AuthContext } from "../../util/Context/auth-context";
+import loadUserInContext from "../../util/Context/loadUserInContext";
 
 const AppIDForm = () => {
-  const { user } = React.useContext(AuthContext);
+  const { user, login, loadingHandler } = React.useContext(AuthContext);
 
   const [appID, setAppID] = React.useState("");
   const [trialPeriod, SetTrialPeriod] = React.useState("");
@@ -57,6 +58,10 @@ const AppIDForm = () => {
       });
     });
   };
+
+  React.useEffect(() => {
+    loadUserInContext(login, loadingHandler);
+  }, [appIDAndTrialsDB, login, loadingHandler]);
 
   let appIDAndTrialPeriods;
 

@@ -1,19 +1,3 @@
-/*!
-
-=========================================================
-* Black Dashboard PRO React - v1.1.0
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/black-dashboard-pro-react
-* Copyright 2020 Creative Tim (https://www.creative-tim.com)
-
-* Coded by Creative Tim
-
-=========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-*/
 import React from "react";
 
 // reactstrap components
@@ -40,6 +24,7 @@ class Login extends React.Component {
             title="Successfully Logged Out"
             onCancel={() => this.hideAlert()}
             showConfirm={false}
+            onConfirm={() => {}}
           />
         ),
       });
@@ -51,7 +36,7 @@ class Login extends React.Component {
     });
 
     setTimeout(() => {
-      return this.props.history.push("auth/login");
+      return this.props.history.push("/");
     }, 1000);
   };
 

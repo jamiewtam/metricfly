@@ -155,7 +155,7 @@ class Login extends React.Component {
                       onClick={this.handleSubmit}
                       size="lg"
                     >
-                      Get Started
+                      Log In
                     </Button>
                     <div className="pull-left">
                       <h6>
