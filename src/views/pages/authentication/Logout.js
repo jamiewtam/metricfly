@@ -2,13 +2,15 @@ import React from "react";
 
 // reactstrap components
 import { Container } from "reactstrap";
-import ReactBSAlert from "react-bootstrap-sweetalert";
+import { Redirect } from "react-router-dom";
 
 import { logoutUser } from "../../../api/auth";
 import { AuthContext } from "../../../util/Context/auth-context";
 
 class Login extends React.Component {
-  state = {};
+  state = {
+    loggedOut: false,
+  };
 
   static contextType = AuthContext;
 
@@ -16,39 +18,20 @@ class Login extends React.Component {
     const { status } = await logoutUser();
 
     if (status === "success") {
-      this.setState({
-        alert: (
-          <ReactBSAlert
-            success
-            style={{ display: "block", marginTop: "-100px" }}
-            title="Successfully Logged Out"
-            onCancel={() => this.hideAlert()}
-            showConfirm={false}
-            onConfirm={() => {}}
-          />
-        ),
-      });
       this.context.logout();
+      this.setState({
+        loggedOut: true,
+      });
     }
-
-    this.setState({
-      loggedOut: true,
-    });
-
-    setTimeout(() => {
-      return this.props.history.push("/");
-    }, 1000);
-  };
-
-  hideAlert = () => {
-    this.setState({
-      alert: null,
-    });
   };
 
   render() {
     if (this.state.loggedOut) {
-      return <React.Fragment>{this.state.alert}</React.Fragment>;
+      setTimeout(() => {
+        window.location.reload();
+      }, 1200);
+
+      return <Redirect to="/" />;
     }
 
     return (

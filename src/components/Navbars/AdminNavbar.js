@@ -82,10 +82,6 @@ class AdminNavbar extends React.Component {
     });
   };
   render() {
-    if (!this.context.user) {
-      this.props.history.push("/auth/login");
-    }
-
     if (
       this.context.user &&
       this.context.user.appIDsAndTrialPeriods &&

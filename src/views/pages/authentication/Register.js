@@ -9,8 +9,6 @@ import {
   CardFooter,
   CardImg,
   CardTitle,
-  Label,
-  FormGroup,
   Form,
   Input,
   InputGroupAddon,
@@ -236,7 +234,7 @@ class Register extends React.Component {
                           }
                         />
                       </InputGroup>
-                      <FormGroup check className="text-left">
+                      {/* <FormGroup check className="text-left">
                         <Label check>
                           <Input type="checkbox" />
                           <span className="form-check-sign" />I agree to the{" "}
@@ -245,10 +243,10 @@ class Register extends React.Component {
                           </a>
                           .
                         </Label>
-                      </FormGroup>
+                      </FormGroup> */}
                     </Form>
                   </CardBody>
-                  <CardFooter>
+                  <CardFooter style={{ marginTop: "0px" }}>
                     <Button
                       className="btn-round"
                       color="primary"

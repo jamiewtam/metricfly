@@ -1,4 +1,5 @@
 import { authAxios } from "../axios";
+import Swal from "sweetalert2";
 
 export const registerUser = async (email, password, passwordConfirm) => {
   try {
@@ -91,6 +92,13 @@ export const logoutUser = async () => {
       url: "users/logout",
     });
     if (res.data.status === "success") {
+      Swal.fire({
+        position: "top",
+        icon: "success",
+        title: "Logged Out",
+        showConfirmButton: false,
+        timer: 1200,
+      });
       return { status: "success" };
     }
   } catch (err) {

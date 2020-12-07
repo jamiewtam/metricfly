@@ -1,6 +1,6 @@
 import React from "react";
 import classnames from "classnames";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 // reactstrap components
 import {
   Button,
@@ -26,6 +26,7 @@ class Login extends React.Component {
     email: "",
     password: "",
     token: "",
+    loggedIn: false,
   };
   componentDidMount() {
     document.body.classList.toggle("login-page");
@@ -50,20 +51,10 @@ class Login extends React.Component {
     );
 
     if (status === "success") {
+      this.setState({
+        loggedIn: true,
+      });
       this.context.login(token, user);
-      // this.setState({
-      //   alert: (
-      //     <ReactBSAlert
-      //       success
-      //       style={{ display: "block", marginTop: "-100px" }}
-      //       title="Successfully Logged In"
-      //       showConfirm={false}
-      //       onCancel={() => this.hideAlert()}
-      //       btnSize=""
-      //     />
-      //   ),
-      // });
-      this.props.history.push("/auth/syncData/false");
     } else {
       this.setState({
         alert: (
@@ -87,8 +78,13 @@ class Login extends React.Component {
     });
   };
   render() {
-    if (Object.keys(this.context.user).length !== 0) {
-      this.props.history.push("/admin/dashboard");
+    if (this.state.loggedIn) {
+      return <Redirect to="/auth/syncData/false" />;
+    } else if (
+      Object.keys(this.context.user).length !== 0 &&
+      !this.state.loggedIn
+    ) {
+      return <Redirect to="/admin/dashboard" />;
     }
     return (
       <>
@@ -151,7 +147,6 @@ class Login extends React.Component {
                       block
                       className="mb-3"
                       color="primary"
-                      href="#pablo"
                       onClick={this.handleSubmit}
                       size="lg"
                     >

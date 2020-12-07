@@ -161,7 +161,7 @@ class Admin extends React.Component {
   static contextType = AuthContext;
   render() {
     if (!this.context.auth) {
-      this.props.history.push("/auth/login");
+      return <Redirect to="/auth/login" />;
     }
     return (
       <div className="wrapper">
