@@ -111,9 +111,9 @@ class Register extends React.Component {
               <Row>
                 <Col className="mr-auto text-left mt-5" lg="5" md="7">
                   <h1 className="title">
-                    Advanced SaaS & Subscription Analytics For Your Shopify App.
-                    All In Just One-Click.
+                    Advanced Subscription Analytics For Your Shopify App
                   </h1>
+                  <h3>All In Just One-Click.</h3>
                   <br />
                   <div className="buttons">
                     <Link to="auth/register">
@@ -122,8 +122,8 @@ class Register extends React.Component {
                         color="primary"
                         size="lg"
                       >
-                        <i className="tim-icons icon-user-run" />
-                        &nbsp; Register For the Beta Now
+                        <i className="tim-icons icon-triangle-right-17" />
+                        &nbsp; Start For Free (Beta)
                       </Button>
                     </Link>
                   </div>
@@ -155,7 +155,7 @@ class Register extends React.Component {
               <Col md="4">
                 <div className="landing-info landing-info-hover">
                   <div className="icon icon-primary" style={{ margin: "auto" }}>
-                    <i className="tim-icons icon-user-run" />
+                    <i className="tim-icons icon-refresh-02" />
                   </div>
                   <h4 className="info-title">
                     Full Shopify Partner Integration
@@ -185,7 +185,7 @@ class Register extends React.Component {
               <Col md="4">
                 <div className="landing-info landing-info-hover">
                   <div className="icon icon-warning" style={{ margin: "auto" }}>
-                    <i className="tim-icons icon-gift-2" />
+                    <i className="tim-icons icon-bulb-63" />
                   </div>
                   <h4 className="info-title">Make Data-driven Decisions.</h4>
                   <p className="description">

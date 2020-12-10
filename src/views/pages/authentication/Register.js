@@ -125,10 +125,10 @@ class Register extends React.Component {
               <Col className="ml-auto" md="5">
                 <div className="info-area info-horizontal mt-5">
                   <div className="icon icon-warning">
-                    <i className="tim-icons icon-wifi" />
+                    <i className="tim-icons icon-sound-wave" />
                   </div>
                   <div className="description">
-                    <h3 className="info-title">Shopify App Analytics</h3>
+                    <h3 className="info-title">Advanced Analytics</h3>
                     <p className="description">
                       Understand how your Shopify app is actually performing
                       without the spreadsheets.
@@ -137,19 +137,19 @@ class Register extends React.Component {
                 </div>
                 <div className="info-area info-horizontal">
                   <div className="icon icon-primary">
-                    <i className="tim-icons icon-triangle-right-17" />
+                    <i className="tim-icons icon-settings-gear-63" />
                   </div>
                   <div className="description">
                     <h3 className="info-title">Built for Shopify Partners</h3>
                     <p className="description">
-                      Build exclusively to obtain all the relevant Shopify
-                      partner data.
+                      The only SasS analytics tool which fully integrates with
+                      your Shopify Partner dashboard.
                     </p>
                   </div>
                 </div>
                 <div className="info-area info-horizontal">
                   <div className="icon icon-info">
-                    <i className="tim-icons icon-trophy" />
+                    <i className="tim-icons icon-check-2" />
                   </div>
                   <div className="description">
                     <h3 className="info-title">One-Click Insights</h3>
@@ -242,7 +242,7 @@ class Register extends React.Component {
                             terms and conditions
                           </a>
                           .
-                        </Label>
+                      </Label>
                       </FormGroup> */}
                     </Form>
                   </CardBody>
@@ -250,7 +250,6 @@ class Register extends React.Component {
                     <Button
                       className="btn-round"
                       color="primary"
-                      href="#pablo"
                       onClick={this.handleSubmit}
                       size="lg"
                     >
