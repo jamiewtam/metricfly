@@ -23,6 +23,7 @@ import {
   metricReducer,
 } from "./components/metricComponents";
 import LastSynced from "./components/lastSynced";
+import { AppEventSection } from "./components/eventHistory";
 //FUNCTIONS AND HOOKS
 import { getDashboardData } from "../../../api/metrics";
 import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
@@ -79,17 +80,6 @@ const Dashboard = () => {
     };
     // eslint-disable-next-line
   }, [endDate]);
-
-  const appEventSection = state.eventArr.map((event) => {
-    return (
-      <tr key={Math.random()}>
-        <td className="text-center">{event.date}</td>
-        <td>{event.store}</td>
-        <td>{event.event}</td>
-        <td>{event.description}</td>
-      </tr>
-    );
-  });
 
   const uninstallSection = state.uninstallReasonArr.map((event) => {
     if (event.reason) {
@@ -254,7 +244,7 @@ const Dashboard = () => {
           />
         </Row>
         <Row>
-          <Col lg="6">
+          <Col lg="12">
             <Card>
               <CardHeader>
                 <CardTitle tag="h5">App Events</CardTitle>
@@ -274,12 +264,14 @@ const Dashboard = () => {
                       <th>Event Details</th>
                     </tr>
                   </thead>
-                  <tbody>{appEventSection}</tbody>
+                  <tbody>
+                    <AppEventSection state={state} />
+                  </tbody>
                 </Table>
               </CardBody>
             </Card>
           </Col>
-          <Col lg="6">
+          <Col lg="12">
             <Card>
               <CardHeader>
                 <CardTitle tag="h5">Uninstalls Reasons</CardTitle>

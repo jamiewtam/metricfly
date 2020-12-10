@@ -192,7 +192,7 @@ export const CalendarComponent = ({
   const [isDesktop, setDesktop] = React.useState(window.innerWidth > 992);
   // RESIZE CALENDAR
   const updateMedia = () => {
-    setDesktop(window.innerWidth > 992);
+    setDesktop(window.innerWidth > 1000);
   };
 
   React.useEffect(() => {
@@ -242,7 +242,7 @@ export const CalendarComponent = ({
         style={{
           position: "absolute",
           zIndex: "5000",
-          top: "7%",
+          top: "175px",
           left: "50%",
           transform: `translate(-50%, -50%)`,
         }}

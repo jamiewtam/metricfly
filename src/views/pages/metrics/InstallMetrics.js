@@ -22,6 +22,7 @@ import {
   ShowCalendarBackdrop,
   CalenderInput,
 } from "../../../components/Calendar/Calendar";
+import { AppEventSection } from "./components/eventHistory";
 //FUNCTIONS
 import { chartOptions } from "../../../api/metrics/factoryFunctions/formatChartData";
 import { useShowCalendar } from "../../../util/hooks/useShowCalendar";
@@ -82,17 +83,6 @@ const InstallMetrics = () => {
   const setBgChartData = (name) => {
     setBigChartData(name);
   };
-
-  const appEventSection = state.eventArr.map((event) => {
-    return (
-      <tr key={Math.random()}>
-        <td className="text-center">{event.date}</td>
-        <td>{event.store}</td>
-        <td>{event.event}</td>
-        <td>{event.description}</td>
-      </tr>
-    );
-  });
 
   if (state.loading) {
     return <Loading />;
@@ -281,7 +271,9 @@ const InstallMetrics = () => {
                       <th className="text-center">Amount</th>
                     </tr>
                   </thead>
-                  <tbody>{appEventSection}</tbody>
+                  <tbody>
+                    <AppEventSection state={state} />
+                  </tbody>
                 </Table>
               </CardBody>
             </Card>

@@ -12,7 +12,7 @@ const AuthHook = () => {
     setUser(user);
     //Token Expiration creation
     const tokenExpiresIn =
-      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60);
+      expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60 * 24);
     setTokenExpiration(tokenExpiresIn);
     //Store user data in local storage
     localStorage.setItem(

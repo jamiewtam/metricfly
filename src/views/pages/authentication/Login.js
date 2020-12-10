@@ -51,10 +51,10 @@ class Login extends React.Component {
     );
 
     if (status === "success") {
+      this.context.login(token, user);
       this.setState({
         loggedIn: true,
       });
-      this.context.login(token, user);
     } else {
       this.setState({
         alert: (
@@ -81,8 +81,9 @@ class Login extends React.Component {
     if (this.state.loggedIn) {
       return <Redirect to="/auth/syncData/false" />;
     } else if (
+      this.context.user &&
       Object.keys(this.context.user).length !== 0 &&
-      !this.state.loggedIn
+      this.state.loggedIn
     ) {
       return <Redirect to="/admin/dashboard" />;
     }
